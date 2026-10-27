@@ -6,14 +6,16 @@ import { Sparkles, ArrowUpRight, FileText, Eye, Zap, ChevronLeft, ChevronRight }
 
 interface ProjectShowcaseProps {
     onSelectProject: (project: Project) => void;
+    projects?: Project[];
 }
 
-export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProject }) => {
+export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProject, projects = PROJECTS }) => {
     const shouldReduceMotion = useReducedMotion();
     const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
     const [activeIdx, setActiveIdx] = useState<number>(0);
 
-    const totalProjects = PROJECTS.length;
+    const projectList = projects && projects.length > 0 ? projects : PROJECTS;
+    const totalProjects = projectList.length;
 
     const handlePrev = (e?: React.MouseEvent) => {
         if (e) e.stopPropagation();
@@ -67,11 +69,11 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
                     {/* Quick Tab Selector & Arrows */}
                     <div className="flex items-center gap-3">
                         <div className="flex items-center gap-1.5 bg-gray-100 p-1 rounded-2xl border border-gray-200">
-                            {PROJECTS.map((proj, idx) => {
+                            {projectList.map((proj, idx) => {
                                 const isCurrent = activeIdx === idx;
                                 return (
                                     <button
-                                        key={proj.id}
+                                        key={proj.id || proj.slug}
                                         type="button"
                                         onClick={() => setActiveIdx(idx)}
                                         className={`px-3.5 py-1.5 rounded-xl text-xs font-mono transition-all font-bold ${
@@ -126,19 +128,19 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
                         <div className="flex items-center gap-3">
                             <span className="w-2.5 h-2.5 rounded-full bg-[#881337] animate-ping" />
                             <span className="font-mono text-xs font-bold text-[#881337] uppercase tracking-wider">
-                                ACTIVE: {getProjectShortName(PROJECTS[activeIdx])}
+                                ACTIVE: {projectList[activeIdx] ? getProjectShortName(projectList[activeIdx]) : ''}
                             </span>
                             <span className="hidden sm:inline text-xs text-gray-300">|</span>
                             <span className="hidden sm:inline text-xs font-mono text-gray-600">
-                                {PROJECTS[activeIdx]?.client} · {PROJECTS[activeIdx]?.period}
+                                {projectList[activeIdx]?.client} · {projectList[activeIdx]?.period}
                             </span>
                         </div>
 
                         {/* Direct Links: GitHub, Figma, Docs, and Modal Open */}
                         <div className="flex items-center gap-2">
-                            {PROJECTS[activeIdx]?.githubUrl && (
+                            {projectList[activeIdx]?.githubUrl && (
                                 <a
-                                    href={PROJECTS[activeIdx].githubUrl}
+                                    href={projectList[activeIdx].githubUrl}
                                     target="_blank"
                                     rel="noreferrer"
                                     title="GitHub Repository"
@@ -150,9 +152,9 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
                                     <span className="hidden md:inline">GitHub</span>
                                 </a>
                             )}
-                            {PROJECTS[activeIdx]?.figmaUrl && (
+                            {projectList[activeIdx]?.figmaUrl && (
                                 <a
-                                    href={PROJECTS[activeIdx].figmaUrl}
+                                    href={projectList[activeIdx].figmaUrl}
                                     target="_blank"
                                     rel="noreferrer"
                                     title="Figma UI/UX Design"
@@ -164,9 +166,9 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
                                     <span className="hidden md:inline">Figma</span>
                                 </a>
                             )}
-                            {PROJECTS[activeIdx]?.docUrl && (
+                            {projectList[activeIdx]?.docUrl && (
                                 <a
-                                    href={PROJECTS[activeIdx].docUrl}
+                                    href={projectList[activeIdx].docUrl}
                                     target="_blank"
                                     rel="noreferrer"
                                     title="Documentation & SRS"
@@ -178,7 +180,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
                             )}
                             <button
                                 type="button"
-                                onClick={() => onSelectProject(PROJECTS[activeIdx])}
+                                onClick={() => projectList[activeIdx] && onSelectProject(projectList[activeIdx])}
                                 className="px-4 py-2 rounded-xl bg-[#881337] hover:bg-[#6d1230] text-white shadow-md shadow-[#881337]/20 transition-all hover:scale-105 flex items-center gap-1.5 text-xs font-bold cursor-pointer"
                             >
                                 <Eye className="w-4 h-4" />
@@ -213,7 +215,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
                         </button>
 
                         {/* 3 Cards Dynamic Cycling Positioning */}
-                        {PROJECTS.map((proj, idx) => {
+                        {projectList.map((proj, idx) => {
                             // Calculate relative cyclic position from activeIdx: 0 = Front, 1 = Middle/Right, 2 = Back/Left
                             const relPos = (idx - activeIdx + totalProjects) % totalProjects;
 
@@ -372,9 +374,9 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
                         {/* Interactive Project Dot Indicators & Arrow Shortcut */}
                         <div className="flex items-center gap-3">
                             <div className="flex items-center gap-2">
-                                {PROJECTS.map((p, idx) => (
+                                {projectList.map((p, idx) => (
                                     <button
-                                        key={p.id}
+                                        key={p.id || p.slug}
                                         type="button"
                                         onClick={() => setActiveIdx(idx)}
                                         className={`h-2.5 rounded-full transition-all cursor-pointer ${

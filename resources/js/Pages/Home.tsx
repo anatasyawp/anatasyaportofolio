@@ -10,7 +10,11 @@ import { ContactAndFooter } from '../Components/ContactAndFooter';
 import { ProjectDetailModal } from '../Components/ProjectDetailModal';
 import { Project } from '../types/portfolio';
 
-export default function Home() {
+interface HomeProps {
+    dbProjects?: Project[];
+}
+
+export default function Home({ dbProjects }: HomeProps) {
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
     return (
@@ -43,7 +47,10 @@ export default function Home() {
                     <ExperienceAndEducation />
 
                     {/* 3. Featured Projects Showcase */}
-                    <ProjectShowcase onSelectProject={(project) => setSelectedProject(project)} />
+                    <ProjectShowcase
+                        projects={dbProjects}
+                        onSelectProject={(project) => setSelectedProject(project)}
+                    />
 
                     {/* 4. Certificates & Achievements */}
                     <CertificatesAndAchievements />
