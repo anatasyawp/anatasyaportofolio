@@ -11,9 +11,11 @@ interface AdminProjectsProps {
 }
 
 export default function AdminProjects({ projects = [] }: AdminProjectsProps) {
+    const [projectList, setProjectList] = useState(projects);
     const [isEditing, setIsEditing] = useState<boolean>(false);
     const [editingId, setEditingId] = useState<number | null>(null);
     const [statusMessage, setStatusMessage] = useState<string | null>(null);
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
     // Form State
     const [formData, setFormData] = useState({
@@ -50,7 +52,7 @@ export default function AdminProjects({ projects = [] }: AdminProjectsProps) {
             docUrl: '',
             liveUrl: '',
             imageUrl: '',
-            order: projects.length + 1,
+            order: projectList.length + 1,
         });
         setIsEditing(false);
         setEditingId(null);
@@ -83,8 +85,26 @@ export default function AdminProjects({ projects = [] }: AdminProjectsProps) {
         });
     };
 
+    const fetchProjects = async () => {
+        try {
+            const path = window.location.pathname;
+            const adminIdx = path.indexOf('/admin');
+            const basePath = adminIdx !== -1 ? path.substring(0, adminIdx) : '';
+            const res = await fetch(`${basePath}/api/projects`, {
+                headers: { 'Accept': 'application/json' }
+            });
+            const result = await res.json();
+            if (result.success && Array.isArray(result.data)) {
+                setProjectList(result.data);
+            }
+        } catch (e) {
+            console.error('Failed to reload projects', e);
+        }
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setIsSubmitting(true);
 
         const payload = {
             ...formData,
@@ -104,12 +124,13 @@ export default function AdminProjects({ projects = [] }: AdminProjectsProps) {
                 : [],
         };
 
-        const csrfToken = (document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement)?.content;
+        const path = window.location.pathname;
+        const adminIdx = path.indexOf('/admin');
+        const basePath = adminIdx !== -1 ? path.substring(0, adminIdx) : '';
+        const base = `${basePath}/api/projects`;
 
         try {
-            const url = editingId
-                ? `/anatasyaportofolio/public/api/projects/${editingId}`
-                : `/anatasyaportofolio/public/api/projects`;
+            const url = editingId ? `${base}/${editingId}` : base;
             const method = editingId ? 'PUT' : 'POST';
 
             const response = await fetch(url, {
@@ -117,7 +138,6 @@ export default function AdminProjects({ projects = [] }: AdminProjectsProps) {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken || '',
                 },
                 body: JSON.stringify(payload),
             });
@@ -125,41 +145,45 @@ export default function AdminProjects({ projects = [] }: AdminProjectsProps) {
             if (response.ok) {
                 setStatusMessage(editingId ? 'Proyek berhasil diperbarui!' : 'Proyek baru berhasil ditambahkan!');
                 resetForm();
+                await fetchProjects();
                 setTimeout(() => {
-                    router.reload();
                     setStatusMessage(null);
-                }, 1000);
+                }, 3000);
             } else {
                 const err = await response.json();
-                alert('Gagal menyimpan: ' + (err.message || 'Terjadi kesalahan'));
+                alert('Gagal menyimpan: ' + (err.message || JSON.stringify(err)));
             }
         } catch (error) {
             alert('Gagal menghubungi server.');
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
     const handleDelete = async (id: number, title: string) => {
         if (!confirm(`Yakin ingin menghapus proyek "${title}"?`)) return;
 
-        const csrfToken = (document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement)?.content;
+        const path = window.location.pathname;
+        const adminIdx = path.indexOf('/admin');
+        const basePath = adminIdx !== -1 ? path.substring(0, adminIdx) : '';
 
         try {
-            const response = await fetch(`/anatasyaportofolio/public/api/projects/${id}`, {
+            const response = await fetch(`${basePath}/api/projects/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Accept': 'application/json',
-                    'X-CSRF-TOKEN': csrfToken || '',
                 },
             });
 
             if (response.ok) {
                 setStatusMessage('Proyek berhasil dihapus.');
+                await fetchProjects();
                 setTimeout(() => {
-                    router.reload();
                     setStatusMessage(null);
-                }, 800);
+                }, 3000);
             } else {
-                alert('Gagal menghapus proyek.');
+                const err = await response.json();
+                alert('Gagal menghapus proyek: ' + (err.message || ''));
             }
         } catch (error) {
             alert('Gagal menghubungi server.');
@@ -415,7 +439,7 @@ export default function AdminProjects({ projects = [] }: AdminProjectsProps) {
                 <div className="bg-white rounded-3xl border border-gray-200 shadow-sm overflow-hidden">
                     <div className="p-6 border-b border-gray-100 flex items-center justify-between">
                         <div>
-                            <h2 className="text-base font-bold text-gray-900">Daftar Proyek di Database ({projects.length})</h2>
+                            <h2 className="text-base font-bold text-gray-900">Daftar Proyek di Database ({projectList.length})</h2>
                             <p className="text-xs text-gray-500">Klik "Edit" untuk mengubah atau "Hapus" untuk menghapus proyek.</p>
                         </div>
                     </div>
@@ -433,7 +457,7 @@ export default function AdminProjects({ projects = [] }: AdminProjectsProps) {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100 text-xs">
-                                {projects.map((proj, idx) => (
+                                {projectList.map((proj, idx) => (
                                     <tr key={proj.id} className="hover:bg-gray-50/80 transition-colors">
                                         <td className="py-4 px-6 font-mono font-bold text-gray-500">
                                             {proj.number || `0${idx + 1}`}
