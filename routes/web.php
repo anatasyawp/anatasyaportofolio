@@ -16,3 +16,10 @@ Route::prefix('api/projects')->name('api.projects.')->group(function () {
     Route::delete('/{project}', [ProjectController::class, 'destroy'])->name('destroy');
 });
 
+// Admin Management Dashboard for Projects
+Route::get('/admin/projects', function () {
+    $projects = \App\Models\Project::orderBy('order', 'asc')->orderBy('id', 'asc')->get();
+    return \Inertia\Inertia::render('AdminProjects', [
+        'projects' => $projects
+    ]);
+})->name('admin.projects');
