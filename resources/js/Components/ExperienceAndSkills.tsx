@@ -36,11 +36,14 @@ export const ExperienceAndEducation: React.FC = () => {
             ref={sectionRef as React.Ref<HTMLElement>}
             className="py-24 relative overflow-hidden"
         >
-            {/* Section glassmorphism backing */}
-            <div className="absolute inset-0 bg-white/65 backdrop-blur-[3px] border-t border-gray-200/80" />
+            {/* Section glassmorphism backing with seamless vertical gradient fade */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/60 to-white/70 backdrop-blur-[2px]" />
+
+            {/* Seamless ambient transition glow between sections */}
+            <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[720px] h-[220px] rounded-full bg-gradient-to-b from-[#881337]/06 via-rose-100/20 to-transparent blur-[100px] pointer-events-none" />
 
             {/* Decorative orb */}
-            <div className="absolute top-0 right-1/4 w-[500px] h-[400px] rounded-full bg-gradient-to-bl from-[#881337]/06 to-transparent blur-[120px] pointer-events-none" />
+            <div className="absolute top-10 right-1/4 w-[500px] h-[400px] rounded-full bg-gradient-to-bl from-[#881337]/06 to-transparent blur-[120px] pointer-events-none" />
 
             <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">

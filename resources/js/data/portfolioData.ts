@@ -2,8 +2,8 @@ import { Project, Experience, Education, SkillCategory, Certificate, Achievement
 
 export const PERSONAL_INFO = {
     name: 'Anatasya Wenita Putri',
-    preferredName: 'Anatasya Putri',
-    headline: 'Hello, I\'m Anatasya Putri.',
+    preferredName: 'Anatasya Wenita Putri',
+    headline: 'Hello, I\'m Anatasya.',
     subheadline: 'A Full-Stack Developer and Software Engineering graduate passionate about building impactful web applications, crafting intuitive user experiences, and delivering reliable, high-quality software through thoughtful design and development.',
     roles: [
         'Full-Stack Developer',

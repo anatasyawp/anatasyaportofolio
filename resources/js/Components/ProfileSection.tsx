@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { ArrowUpRight, MapPin, CheckCircle2, Download } from 'lucide-react';
 import { PERSONAL_INFO, EDUCATION_DATA } from '../data/portfolioData';
@@ -22,6 +22,51 @@ export const ProfileSection: React.FC = () => {
     const shouldReduceMotion = useReducedMotion();
     const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
     const { ref, inView } = useScrollReveal(0.1);
+
+    // Typewriter effect state
+    const targetText = 'Anatasya.';
+    const [typedText, setTypedText] = useState('');
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [hasStarted, setHasStarted] = useState(false);
+
+    useEffect(() => {
+        if (shouldReduceMotion) {
+            setTypedText(targetText);
+            return;
+        }
+
+        const startTimer = setTimeout(() => setHasStarted(true), 350);
+        return () => clearTimeout(startTimer);
+    }, [shouldReduceMotion]);
+
+    useEffect(() => {
+        if (shouldReduceMotion || !hasStarted) return;
+
+        let timer: ReturnType<typeof setTimeout>;
+
+        if (!isDeleting && typedText === targetText) {
+            // Pause 4.5s once fully typed
+            timer = setTimeout(() => {
+                setIsDeleting(true);
+            }, 4500);
+        } else if (isDeleting && typedText === '') {
+            // Pause 500ms before retyping
+            timer = setTimeout(() => {
+                setIsDeleting(false);
+            }, 500);
+        } else {
+            const speed = isDeleting ? 38 : 80;
+            timer = setTimeout(() => {
+                setTypedText((prev) =>
+                    isDeleting
+                        ? targetText.slice(0, prev.length - 1)
+                        : targetText.slice(0, prev.length + 1)
+                );
+            }, speed);
+        }
+
+        return () => clearTimeout(timer);
+    }, [typedText, isDeleting, hasStarted, shouldReduceMotion]);
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         if (shouldReduceMotion) return;
@@ -68,8 +113,12 @@ export const ProfileSection: React.FC = () => {
                         <motion.div variants={itemVariants}>
                             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-gray-900 leading-[1.08] mb-6">
                                 Hello, I'm{' '}
-                                <span className="font-serif italic font-normal text-[#881337] relative">
-                                    Anatasya Putri.
+                                <span className="font-serif italic font-normal text-[#881337] relative inline-block min-h-[1.1em]">
+                                    <span>{typedText || '\u00A0'}</span>
+                                    <span
+                                        aria-hidden="true"
+                                        className="inline-block w-[3px] sm:w-[4px] h-[0.85em] ml-1 sm:ml-1.5 bg-[#881337] align-baseline animate-cursor-blink"
+                                    />
                                     {/* Underline shimmer */}
                                     <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-[#881337]/60 via-rose-400/50 to-transparent rounded-full" />
                                 </span>
@@ -142,7 +191,7 @@ export const ProfileSection: React.FC = () => {
                                     />
                                     {/* Corner name tag */}
                                     <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-white/90 backdrop-blur-md border border-gray-200/70 text-[11px] font-mono font-medium text-gray-700 shadow-sm">
-                                        Anatasya Putri
+                                        Anatasya Wenita Putri
                                     </div>
                                     {/* Overlay shimmer on hover */}
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#881337]/05 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
@@ -176,6 +225,9 @@ export const ProfileSection: React.FC = () => {
 
                 </div>
             </div>
+
+            {/* Smooth gradient transition toward Experience & Education */}
+            <div className="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-b from-transparent to-white/30 pointer-events-none" />
         </section>
     );
 };

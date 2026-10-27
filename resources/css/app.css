@@ -163,3 +163,16 @@ canvas.particle-layer {
     pointer-events: none;
     z-index: 1;
 }
+
+/* ── Typewriter Cursor Blink ──────────────────────────────────────────────── */
+@keyframes cursorBlink {
+    0%, 49% {
+        opacity: 1;
+    }
+    50%, 100% {
+        opacity: 0;
+    }
+}
+.animate-cursor-blink {
+    animation: cursorBlink 0.8s infinite;
+}
