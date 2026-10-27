@@ -62,8 +62,24 @@ export interface Education {
     logoUrl?: string;
 }
 
+export interface License {
+    id: string | number;
+    title: string;
+    issuer: string;
+    issueDate: string;
+    credentialId?: string;
+    credentialUrl?: string;
+    association?: string;
+    category: string;
+    description?: string;
+    skills: string[];
+    badge?: string;
+    image?: string;
+    order?: number;
+}
+
 export interface Certificate {
-    id: string;
+    id: string | number;
     title: string;
     issuer: string;
     issueDate: string;
@@ -79,12 +95,18 @@ export interface Certificate {
 }
 
 export interface Achievement {
-    id: string;
+    id: string | number;
     title: string;
     event: string;
     year: string;
     description: string;
     badge: string;
+    association?: string;
+    credentialUrl?: string;
+    category?: string;
+    skills?: string[];
+    image?: string;
+    order?: number;
 }
 
 export interface SkillCategory {
@@ -92,7 +114,8 @@ export interface SkillCategory {
     description: string;
     skills: {
         name: string;
-        level: 'Proficient' | 'Advanced' | 'Practicing' | 'Learning';
+        level?: 'Proficient' | 'Advanced' | 'Practicing' | 'Learning' | string;
         icon?: string;
+        color?: string;
     }[];
 }

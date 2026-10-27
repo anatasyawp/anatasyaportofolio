@@ -8,18 +8,21 @@ import { CertificatesAndAchievements } from '../Components/CertificatesAndAchiev
 import { ExperienceAndEducation, SkillsSection } from '../Components/ExperienceAndSkills';
 import { ContactAndFooter } from '../Components/ContactAndFooter';
 import { ProjectDetailModal } from '../Components/ProjectDetailModal';
-import { Project } from '../types/portfolio';
+import { InteractiveParallaxBackground } from '../Components/InteractiveParallaxBackground';
+import { Project, License, Achievement } from '../types/portfolio';
 
 interface HomeProps {
     dbProjects?: Project[];
+    dbLicenses?: License[];
+    dbAchievements?: Achievement[];
 }
 
-export default function Home({ dbProjects }: HomeProps) {
+export default function Home({ dbProjects, dbLicenses, dbAchievements }: HomeProps) {
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
     return (
         <ThemeProvider>
-            <div className="min-h-screen bg-white text-gray-800 selection:bg-[#881337]/15 selection:text-[#881337]">
+            <div className="relative min-h-screen bg-transparent text-gray-800 selection:bg-[#881337]/15 selection:text-[#881337] overflow-x-hidden">
                 <Head>
                     <title>Anatasya Wenita Putri — Full-Stack Developer & Software Engineering Portfolio</title>
                     <meta
@@ -28,18 +31,14 @@ export default function Home({ dbProjects }: HomeProps) {
                     />
                 </Head>
 
+                {/* Interactive Dynamic Mouse & Scroll Parallax Background */}
+                <InteractiveParallaxBackground />
+
                 {/* Navigation Bar with Dark / Light Switch */}
                 <Navbar />
 
-                {/* Main Content Layout:
-                    1. Profile with Photo ("Hello, I'm Anatasya Putri.")
-                    2. Work Experience & Education
-                    3. Featured Projects Showcase
-                    4. Certificates & Achievements
-                    5. Skills & Tech Stack
-                    6. Contact & Footer
-                */}
-                <main>
+                {/* Main Content Layout with transparent layers to reveal parallax background */}
+                <main className="relative z-10">
                     {/* 1. Profile Section with Tasya's Photo & Introduction */}
                     <ProfileSection />
 
@@ -53,7 +52,10 @@ export default function Home({ dbProjects }: HomeProps) {
                     />
 
                     {/* 4. Certificates & Achievements */}
-                    <CertificatesAndAchievements />
+                    <CertificatesAndAchievements
+                        licenses={dbLicenses}
+                        achievements={dbAchievements}
+                    />
 
                     {/* 5. Core Skills & Tech Stack */}
                     <SkillsSection />

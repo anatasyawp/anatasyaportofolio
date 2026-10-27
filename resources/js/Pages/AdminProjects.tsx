@@ -85,12 +85,16 @@ export default function AdminProjects({ projects = [] }: AdminProjectsProps) {
         });
     };
 
+    const getBaseUrl = () => {
+        const path = window.location.pathname;
+        const adminIdx = path.indexOf('/admin');
+        const basePath = adminIdx !== -1 ? path.substring(0, adminIdx) : '';
+        return basePath;
+    };
+
     const fetchProjects = async () => {
         try {
-            const path = window.location.pathname;
-            const adminIdx = path.indexOf('/admin');
-            const basePath = adminIdx !== -1 ? path.substring(0, adminIdx) : '';
-            const res = await fetch(`${basePath}/api/projects`, {
+            const res = await fetch(`${getBaseUrl()}/api/projects`, {
                 headers: { 'Accept': 'application/json' }
             });
             const result = await res.json();
@@ -124,10 +128,7 @@ export default function AdminProjects({ projects = [] }: AdminProjectsProps) {
                 : [],
         };
 
-        const path = window.location.pathname;
-        const adminIdx = path.indexOf('/admin');
-        const basePath = adminIdx !== -1 ? path.substring(0, adminIdx) : '';
-        const base = `${basePath}/api/projects`;
+        const base = `${getBaseUrl()}/api/projects`;
 
         try {
             const url = editingId ? `${base}/${editingId}` : base;
@@ -190,6 +191,8 @@ export default function AdminProjects({ projects = [] }: AdminProjectsProps) {
         }
     };
 
+    const basePath = getBaseUrl();
+
     return (
         <div className="min-h-screen bg-gray-50 text-gray-900 selection:bg-[#881337]/15 selection:text-[#881337]">
             <Head title="Project Management — Tasya Portfolio Admin" />
@@ -199,7 +202,7 @@ export default function AdminProjects({ projects = [] }: AdminProjectsProps) {
                 <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-4">
                         <a
-                            href="/anatasyaportofolio/public/"
+                            href={`${basePath}/`}
                             className="p-2 rounded-xl border border-gray-200 text-gray-600 hover:text-[#881337] hover:border-[#881337]/30 transition-all flex items-center gap-1.5 text-xs font-mono font-bold"
                         >
                             <ArrowLeft className="w-4 h-4" />
@@ -213,6 +216,17 @@ export default function AdminProjects({ projects = [] }: AdminProjectsProps) {
                                     PROJECTS CRUD
                                 </span>
                             </h1>
+                            <div className="flex flex-wrap gap-2 mt-1">
+                                <span className="text-[10px] font-mono text-[#881337] font-bold">Projects</span>
+                                <span className="text-[10px] text-gray-300">·</span>
+                                <a href={`${basePath}/admin/licenses`} className="text-[10px] font-mono text-gray-500 hover:text-[#881337]">
+                                    Licenses
+                                </a>
+                                <span className="text-[10px] text-gray-300">·</span>
+                                <a href={`${basePath}/admin/achievements`} className="text-[10px] font-mono text-gray-500 hover:text-[#881337]">
+                                    Achievements
+                                </a>
+                            </div>
                         </div>
                     </div>
 

@@ -3,6 +3,7 @@ import { motion, useReducedMotion, AnimatePresence } from 'motion/react';
 import { PROJECTS } from '../data/portfolioData';
 import { Project } from '../types/portfolio';
 import { Sparkles, ArrowUpRight, FileText, Eye, Zap, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useScrollReveal } from '../lib/useScrollReveal';
 
 interface ProjectShowcaseProps {
     onSelectProject: (project: Project) => void;
@@ -13,6 +14,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
     const shouldReduceMotion = useReducedMotion();
     const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
     const [activeIdx, setActiveIdx] = useState<number>(0);
+    const { ref: sectionRef, inView } = useScrollReveal(0.06);
 
     const projectList = projects && projects.length > 0 ? projects : PROJECTS;
     const totalProjects = projectList.length;
@@ -48,11 +50,19 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
     };
 
     return (
-        <section id="projects" className="py-24 relative bg-white border-t border-gray-200 overflow-hidden">
+        <section id="projects" ref={sectionRef as React.Ref<HTMLElement>} className="py-24 relative overflow-hidden">
+            {/* Glassmorphism section backing */}
+            <div className="absolute inset-0 bg-white/70 backdrop-blur-[2px] border-t border-gray-200/80" />
+
             {/* Subtle atmospheric glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[550px] bg-gradient-to-tr from-[#881337]/08 via-rose-50/40 to-transparent blur-[140px] pointer-events-none rounded-full" />
 
-            <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+            <motion.div
+                className="max-w-7xl mx-auto px-6 md:px-12 relative z-10"
+                initial={{ opacity: 0, y: 40 }}
+                animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            >
 
                 {/* Section Header */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-6 border-b border-gray-200">
@@ -66,47 +76,24 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
                         </h2>
                     </div>
 
-                    {/* Quick Tab Selector & Arrows */}
-                    <div className="flex items-center gap-3">
-                        <div className="flex items-center gap-1.5 bg-gray-100 p-1 rounded-2xl border border-gray-200">
-                            {projectList.map((proj, idx) => {
-                                const isCurrent = activeIdx === idx;
-                                return (
-                                    <button
-                                        key={proj.id || proj.slug}
-                                        type="button"
-                                        onClick={() => setActiveIdx(idx)}
-                                        className={`px-3.5 py-1.5 rounded-xl text-xs font-mono transition-all font-bold ${
-                                            isCurrent
-                                                ? 'bg-[#881337] text-white shadow-md shadow-[#881337]/30 scale-100'
-                                                : 'text-gray-600 hover:text-gray-900 hover:bg-white/70'
-                                        }`}
-                                    >
-                                        {getProjectShortName(proj)}
-                                    </button>
-                                );
-                            })}
-                        </div>
-
-                        {/* Arrow navigation buttons */}
-                        <div className="flex items-center gap-1.5">
-                            <button
-                                type="button"
-                                onClick={handlePrev}
-                                aria-label="Previous project"
-                                className="w-10 h-10 rounded-xl bg-white hover:bg-gray-50 border border-gray-200 text-gray-800 hover:text-[#881337] hover:border-[#881337]/40 shadow-sm transition-all hover:scale-105 active:scale-95 flex items-center justify-center cursor-pointer"
-                            >
-                                <ChevronLeft className="w-5 h-5" />
-                            </button>
-                            <button
-                                type="button"
-                                onClick={handleNext}
-                                aria-label="Next project"
-                                className="w-10 h-10 rounded-xl bg-white hover:bg-gray-50 border border-gray-200 text-gray-800 hover:text-[#881337] hover:border-[#881337]/40 shadow-sm transition-all hover:scale-105 active:scale-95 flex items-center justify-center cursor-pointer"
-                            >
-                                <ChevronRight className="w-5 h-5" />
-                            </button>
-                        </div>
+                    {/* Arrow navigation buttons */}
+                    <div className="flex items-center gap-1.5">
+                        <button
+                            type="button"
+                            onClick={handlePrev}
+                            aria-label="Previous project"
+                            className="w-10 h-10 rounded-xl bg-white hover:bg-gray-50 border border-gray-200 text-gray-800 hover:text-[#881337] hover:border-[#881337]/40 shadow-sm transition-all hover:scale-105 active:scale-95 flex items-center justify-center cursor-pointer"
+                        >
+                            <ChevronLeft className="w-5 h-5" />
+                        </button>
+                        <button
+                            type="button"
+                            onClick={handleNext}
+                            aria-label="Next project"
+                            className="w-10 h-10 rounded-xl bg-white hover:bg-gray-50 border border-gray-200 text-gray-800 hover:text-[#881337] hover:border-[#881337]/40 shadow-sm transition-all hover:scale-105 active:scale-95 flex items-center justify-center cursor-pointer"
+                        >
+                            <ChevronRight className="w-5 h-5" />
+                        </button>
                     </div>
                 </div>
 
@@ -392,7 +379,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
                     </div>
                 </div>
 
-            </div>
+            </motion.div>
         </section>
     );
 };

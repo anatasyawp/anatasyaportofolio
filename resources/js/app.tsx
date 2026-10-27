@@ -5,12 +5,16 @@ import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';
 import Home from './Pages/Home';
 import AdminProjects from './Pages/AdminProjects';
+import AdminLicenses from './Pages/AdminLicenses';
+import AdminAchievements from './Pages/AdminAchievements';
 
 const appName = import.meta.env.VITE_APP_NAME || "Tasya's Portfolio";
 
 const pages: Record<string, any> = {
     Home,
     AdminProjects,
+    AdminLicenses,
+    AdminAchievements,
 };
 
 createInertiaApp({

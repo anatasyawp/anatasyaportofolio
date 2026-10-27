@@ -23,8 +23,13 @@ class ProjectController extends Controller
             ]);
         }
 
+        $licenses = \App\Models\License::orderBy('order', 'asc')->orderBy('id', 'asc')->get();
+        $achievements = \App\Models\Achievement::orderBy('order', 'asc')->orderBy('id', 'asc')->get();
+
         return Inertia::render('Home', [
-            'dbProjects' => $projects
+            'dbProjects' => $projects,
+            'dbLicenses' => $licenses,
+            'dbAchievements' => $achievements,
         ]);
     }
 

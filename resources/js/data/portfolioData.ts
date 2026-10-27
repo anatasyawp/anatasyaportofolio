@@ -1,10 +1,10 @@
-import { Project, Experience, Education, SkillCategory } from '../types/portfolio';
+import { Project, Experience, Education, SkillCategory, Certificate, Achievement } from '../types/portfolio';
 
 export const PERSONAL_INFO = {
     name: 'Anatasya Wenita Putri',
     preferredName: 'Anatasya Putri',
     headline: 'Hello, I\'m Anatasya Putri.',
-    subheadline: 'A Full-Stack Developer and Software Engineering Graduate passionate about building functional web applications, designing intuitive user experiences, and ensuring software quality.',
+    subheadline: 'A Full-Stack Developer and Software Engineering graduate passionate about building impactful web applications, crafting intuitive user experiences, and delivering reliable, high-quality software through thoughtful design and development.',
     roles: [
         'Full-Stack Developer',
         'Software Engineering Graduate',
@@ -13,9 +13,10 @@ export const PERSONAL_INFO = {
     ],
     professionalStatus: 'Fresh Graduate · Full-Stack Developer · Open to Opportunities',
     bio: 'Fresh Graduate in D4 Software Engineering (Teknologi Rekayasa Perangkat Lunak) from IPB University (GPA 3.54 / 4.00). Experienced in full-stack web application development using Laravel, PHP, JavaScript, and MySQL during an intensive internship at Pemerintah Kota Depok.',
-    email: 'anatasyawenita@gmail.com',
+    email: 'anatasyawenitaputrii@gmail.com',
     github: 'https://github.com/anatasyawp',
     linkedin: 'https://linkedin.com/in/anatasyawp',
+    instagram: 'https://instagram.com/anatasyawp_',
     location: 'Bogor / Depok / Jakarta, Indonesia',
     avatarUrl: 'images/tasya_cutout.png',
     cvUrl: '/assets/cv-anatasya-wenita-putri.pdf',
@@ -308,42 +309,119 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
         name: 'Frontend Development',
         description: 'Building responsive, accessible, and interactive web interfaces.',
         skills: [
-            { name: 'HTML5 & CSS3', level: 'Proficient' },
-            { name: 'JavaScript (ES6+)', level: 'Proficient' },
-            { name: 'Bootstrap', level: 'Proficient' },
-            { name: 'React', level: 'Practicing' },
-            { name: 'Tailwind CSS', level: 'Advanced' },
+            { 
+                name: 'HTML5', 
+                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg',
+                color: '#E34F26'
+            },
+            { 
+                name: 'CSS3', 
+                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg',
+                color: '#1572B6'
+            },
+            { 
+                name: 'JavaScript', 
+                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
+                color: '#F7DF1E'
+            },
+            { 
+                name: 'React', 
+                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
+                color: '#61DAFB'
+            },
+            { 
+                name: 'Tailwind CSS', 
+                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg',
+                color: '#06B6D4'
+            },
+            { 
+                name: 'Bootstrap', 
+                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg',
+                color: '#7952B3'
+            },
         ]
     },
     {
         name: 'Backend & Database',
-        description: 'Developing application logic, APIs, and relational database operations.',
+        description: 'Developing application logic, secure APIs, and relational database schemas.',
         skills: [
-            { name: 'Laravel', level: 'Proficient' },
-            { name: 'PHP', level: 'Proficient' },
-            { name: 'MySQL', level: 'Proficient' },
-            { name: 'RESTful API Concepts', level: 'Advanced' }
+            { 
+                name: 'PHP', 
+                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg',
+                color: '#777BB4'
+            },
+            { 
+                name: 'Laravel', 
+                icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/laravel/laravel-original.svg',
+                color: '#FF2D20'
+            },
+            { 
+                name: 'MySQL', 
+                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg',
+                color: '#4479A1'
+            },
+            { 
+                name: 'RESTful API', 
+                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg',
+                color: '#009688'
+            }
         ]
     },
     {
         name: 'UI/UX Design',
-        description: 'Designing wireframes, prototypes, and usability-evaluated interfaces.',
+        description: 'Designing wireframes, high-fidelity prototypes, and design systems.',
         skills: [
-            { name: 'Figma', level: 'Advanced' },
-            { name: 'Wireframing & Prototyping', level: 'Advanced' },
-            { name: 'Usability Evaluation (SUS)', level: 'Proficient' },
+            { 
+                name: 'Figma', 
+                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg',
+                color: '#F24E1E'
+            },
+            { 
+                name: 'Wireframing', 
+                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xd/xd-plain.svg',
+                color: '#FF61F6'
+            },
+            { 
+                name: 'Usability (SUS)', 
+                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/trello/trello-plain.svg',
+                color: '#0052CC'
+            },
         ]
     },
     {
         name: 'Software Engineering & QA',
-        description: 'Applying engineering practices, testing, and collaboration tooling.',
+        description: 'Testing methodologies, version control, and API testing tools.',
         skills: [
-            { name: 'Black Box Testing', level: 'Proficient' },
-            { name: 'User Acceptance Testing (UAT)', level: 'Advanced' },
-            { name: 'Git & GitHub', level: 'Proficient' },
-            { name: 'Apache JMeter', level: 'Practicing' },
-            { name: 'Postman', level: 'Advanced' },
-            { name: 'Jira', level: 'Practicing' },
+            { 
+                name: 'Git & GitHub', 
+                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',
+                color: '#F05032'
+            },
+            { 
+                name: 'Postman', 
+                icon: 'https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg',
+                color: '#FF6C37'
+            },
+            { 
+                name: 'Apache JMeter', 
+                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg',
+                color: '#D22128'
+            },
+            { 
+                name: 'Jira', 
+                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg',
+                color: '#0052CC'
+            },
+            { 
+                name: 'Black Box Testing', 
+                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg',
+                color: '#43B02A'
+            },
+            { 
+                name: 'UAT Testing', 
+                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/confluence/confluence-original.svg',
+                color: '#172B4D'
+            },
         ]
     }
 ];

@@ -1,13 +1,66 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { CERTIFICATES } from '../data/portfolioData';
-import { Certificate } from '../types/portfolio';
-import { Award, Trophy, ExternalLink, Calendar, ChevronLeft, ChevronRight, ShieldCheck, Sparkles } from 'lucide-react';
+import { Achievement, Certificate, License } from '../types/portfolio';
+import { Trophy, ExternalLink, Calendar, ChevronLeft, ChevronRight, ShieldCheck } from 'lucide-react';
 import { motion, useReducedMotion } from 'motion/react';
+import { useScrollReveal } from '../lib/useScrollReveal';
 
-export const CertificatesAndAchievements: React.FC = () => {
+interface CertificatesAndAchievementsProps {
+    licenses?: License[];
+    achievements?: Achievement[];
+    certificates?: Certificate[];
+}
+
+const mapLicenses = (items: License[] = []): Certificate[] =>
+    items.map((item) => ({
+        id: item.id,
+        title: item.title,
+        issuer: item.issuer,
+        issueDate: item.issueDate,
+        credentialId: item.credentialId,
+        credentialUrl: item.credentialUrl,
+        association: item.association,
+        category: item.category,
+        description: item.description,
+        skills: item.skills || [],
+        type: 'license',
+        badge: item.badge,
+        image: item.image,
+    }));
+
+const mapAchievements = (items: Achievement[] = []): Certificate[] =>
+    items.map((item) => ({
+        id: item.id,
+        title: item.title,
+        issuer: item.event,
+        issueDate: item.year,
+        credentialUrl: item.credentialUrl,
+        association: item.association,
+        category: item.category || 'National Competition',
+        description: item.description,
+        skills: item.skills || [],
+        type: 'achievement',
+        badge: item.badge,
+        image: item.image,
+    }));
+
+export const CertificatesAndAchievements: React.FC<CertificatesAndAchievementsProps> = ({
+    licenses = [],
+    achievements = [],
+    certificates,
+}) => {
     const shouldReduceMotion = useReducedMotion();
     const [activeIndex, setActiveIndex] = useState<number>(0);
-    const totalItems = CERTIFICATES.length;
+    const { ref: sectionRef, inView } = useScrollReveal(0.07);
+
+    const fromDatabase = [...mapLicenses(licenses), ...mapAchievements(achievements)];
+    const certificateList =
+        fromDatabase.length > 0
+            ? fromDatabase
+            : certificates && certificates.length > 0
+                ? certificates
+                : CERTIFICATES;
+    const totalItems = certificateList.length;
 
     const handlePrev = () => {
         setActiveIndex((prev) => (prev - 1 + totalItems) % totalItems);
@@ -17,14 +70,22 @@ export const CertificatesAndAchievements: React.FC = () => {
         setActiveIndex((prev) => (prev + 1) % totalItems);
     };
 
-    const activeItem = CERTIFICATES[activeIndex];
+    const activeItem = certificateList[activeIndex];
 
     return (
-        <section id="certificates" className="py-24 relative bg-gray-50/70 border-t border-gray-200 overflow-hidden">
+        <section id="certificates" ref={sectionRef as React.Ref<HTMLElement>} className="py-24 relative overflow-hidden">
+            {/* Glassmorphism section backing */}
+            <div className="absolute inset-0 bg-gray-50/75 backdrop-blur-[2px] border-t border-gray-200" />
+
             {/* Ambient Background Glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-gradient-to-tr from-[#881337]/06 via-rose-50/30 to-transparent blur-[140px] pointer-events-none rounded-full" />
 
-            <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+            <motion.div
+                className="max-w-7xl mx-auto px-6 md:px-12 relative z-10"
+                initial={{ opacity: 0, y: 36 }}
+                animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 36 }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            >
 
                 {/* Section Header */}
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
@@ -67,7 +128,7 @@ export const CertificatesAndAchievements: React.FC = () => {
                     className="relative w-full py-6 md:py-12 flex items-center justify-center min-h-[460px] sm:min-h-[520px] overflow-visible"
                     style={{ perspective: '1400px', transformStyle: 'preserve-3d' }}
                 >
-                    {CERTIFICATES.map((item, idx) => {
+                    {certificateList.map((item, idx) => {
                         // Calculate offset relative to activeIndex in circular space (-2, -1, 0, 1, 2, etc.)
                         let diff = idx - activeIndex;
                         if (diff > totalItems / 2) diff -= totalItems;
@@ -89,7 +150,7 @@ export const CertificatesAndAchievements: React.FC = () => {
 
                         return (
                             <motion.div
-                                key={item.id}
+                                key={item.id || item.title}
                                 onClick={() => setActiveIndex(idx)}
                                 animate={shouldReduceMotion ? { opacity } : {
                                     x: xOffset,
@@ -155,7 +216,7 @@ export const CertificatesAndAchievements: React.FC = () => {
 
                                         {/* Skill Tags */}
                                         <div className="flex flex-wrap gap-1 mb-3">
-                                            {item.skills.slice(0, 3).map((s) => (
+                                            {item.skills?.slice(0, 3).map((s) => (
                                                 <span
                                                     key={s}
                                                     className="px-2 py-0.5 text-[9px] font-mono rounded bg-white/15 backdrop-blur-md text-gray-100 border border-white/10"
@@ -163,9 +224,9 @@ export const CertificatesAndAchievements: React.FC = () => {
                                                     {s}
                                                 </span>
                                             ))}
-                                            {item.skills.length > 3 && (
+                                            {(item.skills?.length || 0) > 3 && (
                                                 <span className="px-1.5 py-0.5 text-[9px] font-mono rounded bg-white/20 text-gray-200">
-                                                    +{item.skills.length - 3}
+                                                    +{(item.skills?.length || 0) - 3}
                                                 </span>
                                             )}
                                         </div>
@@ -211,9 +272,9 @@ export const CertificatesAndAchievements: React.FC = () => {
 
                     {/* Pagination Dots */}
                     <div className="flex items-center gap-1.5">
-                        {CERTIFICATES.map((c, i) => (
+                        {certificateList.map((c, i) => (
                             <button
-                                key={c.id}
+                                key={c.id || c.title}
                                 type="button"
                                 onClick={() => setActiveIndex(i)}
                                 aria-label={`Slide to ${c.title}`}
@@ -227,7 +288,7 @@ export const CertificatesAndAchievements: React.FC = () => {
                     </div>
                 </div>
 
-            </div>
+            </motion.div>
         </section>
     );
 };
