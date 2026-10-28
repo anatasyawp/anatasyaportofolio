@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { motion, useReducedMotion } from 'motion/react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { motion, useReducedMotion, type Variants } from 'motion/react';
 import { ArrowUpRight, MapPin, CheckCircle2, Download } from 'lucide-react';
-import { PERSONAL_INFO, EDUCATION_DATA } from '../data/portfolioData';
+import { PERSONAL_INFO } from '../data/portfolioData';
 import { useScrollReveal } from '../lib/useScrollReveal';
 
+/* ── Constants ─────────────────────────────────────────────────────────────── */
+const TARGET_TEXT = 'Anatasya.';
+
 /* ── Stagger variants ──────────────────────────────────────────────────────── */
-const containerVariants = {
+const containerVariants: Variants = {
     hidden: {},
     visible: { transition: { staggerChildren: 0.13, delayChildren: 0.05 } },
 };
-const itemVariants = {
+const itemVariants: Variants = {
     hidden:  { opacity: 0, y: 28 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
-};
-const cardVariants = {
-    hidden:  { opacity: 0, scale: 0.94, y: 32 },
-    visible: { opacity: 1, scale: 1,    y: 0,  transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 };
 
 export const ProfileSection: React.FC = () => {
@@ -24,14 +23,16 @@ export const ProfileSection: React.FC = () => {
     const { ref, inView } = useScrollReveal(0.1);
 
     // Typewriter effect state
-    const targetText = 'Anatasya.';
     const [typedText, setTypedText] = useState('');
     const [isDeleting, setIsDeleting] = useState(false);
     const [hasStarted, setHasStarted] = useState(false);
 
+    // Prevent image onerror infinite loop
+    const imgErrorFired = useRef(false);
+
     useEffect(() => {
         if (shouldReduceMotion) {
-            setTypedText(targetText);
+            setTypedText(TARGET_TEXT);
             return;
         }
 
@@ -44,23 +45,19 @@ export const ProfileSection: React.FC = () => {
 
         let timer: ReturnType<typeof setTimeout>;
 
-        if (!isDeleting && typedText === targetText) {
-            // Pause 4.5s once fully typed
-            timer = setTimeout(() => {
-                setIsDeleting(true);
-            }, 4500);
+        if (!isDeleting && typedText === TARGET_TEXT) {
+            // Pause 4.5 s once fully typed, then start deleting
+            timer = setTimeout(() => setIsDeleting(true), 4500);
         } else if (isDeleting && typedText === '') {
-            // Pause 500ms before retyping
-            timer = setTimeout(() => {
-                setIsDeleting(false);
-            }, 500);
+            // Pause 500 ms before retyping
+            timer = setTimeout(() => setIsDeleting(false), 500);
         } else {
             const speed = isDeleting ? 38 : 80;
             timer = setTimeout(() => {
                 setTypedText((prev) =>
                     isDeleting
-                        ? targetText.slice(0, prev.length - 1)
-                        : targetText.slice(0, prev.length + 1)
+                        ? TARGET_TEXT.slice(0, prev.length - 1)
+                        : TARGET_TEXT.slice(0, prev.length + 1)
                 );
             }, speed);
         }
@@ -68,20 +65,27 @@ export const ProfileSection: React.FC = () => {
         return () => clearTimeout(timer);
     }, [typedText, isDeleting, hasStarted, shouldReduceMotion]);
 
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
         if (shouldReduceMotion) return;
         const rect = e.currentTarget.getBoundingClientRect();
         const x = (e.clientX - (rect.left + rect.width  / 2)) / 30;
         const y = (e.clientY - (rect.top  + rect.height / 2)) / 30;
         setMouseOffset({ x, y });
-    };
+    }, [shouldReduceMotion]);
 
-    const handleMouseLeave = () => setMouseOffset({ x: 0, y: 0 });
+    const handleMouseLeave = useCallback(() => setMouseOffset({ x: 0, y: 0 }), []);
+
+    const handleImgError = useCallback((e: React.SyntheticEvent<HTMLImageElement>) => {
+        if (imgErrorFired.current) return;
+        imgErrorFired.current = true;
+        e.currentTarget.src = '/images/tasya_cutout.png';
+    }, []);
 
     return (
         <section
             id="profile"
-            ref={ref as React.Ref<HTMLElement>}
+            aria-label="Profile introduction"
+            ref={ref as React.RefObject<HTMLElement>}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             className="relative min-h-[92vh] flex items-center pt-28 pb-16 overflow-hidden bg-transparent"
@@ -98,7 +102,7 @@ export const ProfileSection: React.FC = () => {
                         className="lg:col-span-7 flex flex-col justify-center order-1 pt-4 lg:pt-0"
                         variants={containerVariants}
                         initial="hidden"
-                        animate={inView || !shouldReduceMotion ? 'visible' : 'hidden'}
+                        animate={inView ? 'visible' : 'hidden'}
                     >
                         {/* Status Badge */}
                         <motion.div
@@ -180,12 +184,7 @@ export const ProfileSection: React.FC = () => {
                                 <div className="relative w-full aspect-[4/5] rounded-xl sm:rounded-2xl overflow-hidden bg-gradient-to-b from-gray-50 via-white to-gray-100 border border-[#881337]/15 shadow-inner">
                                     <img
                                         src={`./${PERSONAL_INFO.avatarUrl}`}
-                                        onError={(e) => {
-                                            const target = e.currentTarget;
-                                            if (target.src.indexOf('anatasyaportofolio') === -1) {
-                                                target.src = '/anatasyaportofolio/public/images/tasya_cutout.png';
-                                            }
-                                        }}
+                                        onError={handleImgError}
                                         alt={PERSONAL_INFO.name}
                                         className="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-[1.03]"
                                     />
@@ -197,11 +196,9 @@ export const ProfileSection: React.FC = () => {
                                     <div className="absolute inset-0 bg-gradient-to-t from-[#881337]/05 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-500" />
                                 </div>
 
-                                {/* Floating badge */}
+                                {/* Floating badge — Open to Work */}
                                 <motion.div
-                                    animate={shouldReduceMotion ? {} : {
-                                        y: [0, -6, 0],
-                                    }}
+                                    animate={shouldReduceMotion ? {} : { y: [0, -6, 0] }}
                                     transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut' }}
                                     className="absolute -bottom-3 -right-3 px-3 py-2 rounded-xl bg-white border border-gray-200 shadow-lg text-xs font-mono text-gray-700 flex items-center gap-1.5"
                                 >
@@ -209,10 +206,9 @@ export const ProfileSection: React.FC = () => {
                                     <span>Open to Work</span>
                                 </motion.div>
 
+                                {/* Floating badge — Location */}
                                 <motion.div
-                                    animate={shouldReduceMotion ? {} : {
-                                        y: [0, -5, 0],
-                                    }}
+                                    animate={shouldReduceMotion ? {} : { y: [0, -5, 0] }}
                                     transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut', delay: 1 }}
                                     className="absolute -top-3 -left-3 px-3 py-2 rounded-xl bg-[#881337] shadow-lg text-xs font-mono text-white flex items-center gap-1.5"
                                 >
