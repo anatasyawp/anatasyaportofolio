@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion, useReducedMotion } from 'motion/react';
 import { Layers, ArrowRight, ExternalLink, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { Project } from '../types/portfolio';
@@ -14,6 +15,7 @@ export const LayeredProjectCard: React.FC<LayeredProjectCardProps> = ({
     onSelectProject,
     reverse = false,
 }) => {
+    const { t } = useTranslation();
     const shouldReduceMotion = useReducedMotion();
     const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
 
@@ -94,7 +96,7 @@ export const LayeredProjectCard: React.FC<LayeredProjectCardProps> = ({
                             onClick={() => onSelectProject(project)}
                             className="group inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-[#881337] hover:bg-[#6d1230] rounded-md shadow-md shadow-[#881337]/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
                         >
-                            <span>Open Project</span>
+                            <span>{t('projects.openProject')}</span>
                             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                         </button>
 

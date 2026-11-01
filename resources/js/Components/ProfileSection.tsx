@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion, useReducedMotion, type Variants } from 'motion/react';
 import { ArrowUpRight, MapPin, CheckCircle2, Download } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
@@ -18,6 +19,7 @@ const itemVariants: Variants = {
 };
 
 export const ProfileSection: React.FC = () => {
+    const { t } = useTranslation();
     const shouldReduceMotion = useReducedMotion();
     const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
     const { ref, inView } = useScrollReveal(0.1);
@@ -110,13 +112,13 @@ export const ProfileSection: React.FC = () => {
                             className="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-[#881337]/08 border border-[#881337]/20 text-xs font-mono text-[#881337] mb-6"
                         >
                             <span className="w-2 h-2 rounded-full bg-[#881337] animate-pulse" />
-                            <span>{PERSONAL_INFO.professionalStatus}</span>
+                            <span>{t('profile.status')}</span>
                         </motion.div>
 
                         {/* Headline */}
                         <motion.div variants={itemVariants}>
                             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-gray-900 leading-[1.08] mb-6">
-                                Hello, I'm{' '}
+                                {t('profile.greeting')}{' '}
                                 <span className="font-serif italic font-normal text-[#881337] relative inline-block min-h-[1.1em]">
                                     <span>{typedText || '\u00A0'}</span>
                                     <span
@@ -129,7 +131,7 @@ export const ProfileSection: React.FC = () => {
                             </h1>
 
                             <p className="text-base sm:text-lg text-gray-600 leading-relaxed max-w-xl mb-8 font-normal">
-                                {PERSONAL_INFO.subheadline}
+                                {t('profile.subheadline')}
                             </p>
                         </motion.div>
 
@@ -142,7 +144,7 @@ export const ProfileSection: React.FC = () => {
                                 href="#contact"
                                 className="group inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold text-white bg-[#881337] hover:bg-[#6d1230] rounded-full shadow-lg shadow-[#881337]/30 transition-all hover:scale-[1.03] hover:shadow-[#881337]/40 active:scale-[0.98]"
                             >
-                                <span>Let's Connect</span>
+                                <span>{t('profile.connect')}</span>
                                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                             </a>
 
@@ -150,7 +152,7 @@ export const ProfileSection: React.FC = () => {
                                 href="#projects"
                                 className="inline-flex items-center gap-2 px-6 py-3.5 text-sm font-medium text-gray-700 hover:text-[#881337] bg-white/70 hover:bg-white rounded-full border border-gray-200 hover:border-[#881337]/30 transition-all shadow-sm"
                             >
-                                <span>Explore Projects</span>
+                                <span>{t('profile.exploreProjects')}</span>
                             </a>
 
                             {PERSONAL_INFO.hasCvFile && (
@@ -160,7 +162,7 @@ export const ProfileSection: React.FC = () => {
                                     className="inline-flex items-center gap-2 px-5 py-3.5 text-sm font-medium text-gray-600 hover:text-[#881337] transition-colors"
                                 >
                                     <Download className="w-4 h-4" />
-                                    <span>CV</span>
+                                    <span>{t('profile.cv')}</span>
                                 </a>
                             )}
                         </motion.div>
@@ -203,7 +205,7 @@ export const ProfileSection: React.FC = () => {
                                     className="absolute -bottom-3 -right-3 px-3 py-2 rounded-xl bg-white border border-gray-200 shadow-lg text-xs font-mono text-gray-700 flex items-center gap-1.5"
                                 >
                                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-                                    <span>Open to Work</span>
+                                    <span>{t('profile.openToWork')}</span>
                                 </motion.div>
 
                                 {/* Floating badge — Location */}
@@ -213,7 +215,7 @@ export const ProfileSection: React.FC = () => {
                                     className="absolute -top-3 -left-3 px-3 py-2 rounded-xl bg-[#881337] shadow-lg text-xs font-mono text-white flex items-center gap-1.5"
                                 >
                                     <MapPin className="w-3.5 h-3.5" />
-                                    <span>{PERSONAL_INFO.location?.split(',')[0] ?? 'Indonesia'}</span>
+                                    <span>{t('profile.location')?.split(',')[0] ?? 'Indonesia'}</span>
                                 </motion.div>
                             </motion.div>
                         </div>

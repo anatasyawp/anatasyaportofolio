@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Head } from '@inertiajs/react';
+import { useTranslation } from 'react-i18next';
 import { ThemeProvider } from '../context/ThemeContext';
 import { Navbar } from '../Components/Navbar';
 import { ProfileSection } from '../Components/ProfileSection';
@@ -18,16 +19,17 @@ interface HomeProps {
 }
 
 export default function Home({ dbProjects, dbLicenses, dbAchievements }: HomeProps) {
+    const { t } = useTranslation();
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
     return (
         <ThemeProvider>
             <div className="relative min-h-screen bg-transparent text-gray-800 selection:bg-[#881337]/15 selection:text-[#881337] overflow-x-hidden">
                 <Head>
-                    <title>Anatasya Wenita Putri — Full-Stack Developer & Software Engineering Portfolio</title>
+                    <title>{t('meta.title')}</title>
                     <meta
                         name="description"
-                        content="Portfolio of Anatasya Wenita Putri (Tasya). Fresh Graduate in D4 Software Engineering from IPB University. Full-Stack Developer with experience in Laravel, PHP, MySQL, JavaScript, and Software Quality Assurance at Pemerintah Kota Depok."
+                        content={t('meta.description')}
                     />
                     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
                     <link rel="alternate icon" href="./favicon.ico" />

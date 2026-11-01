@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
+import { LanguageSwitcher } from './LanguageSwitcher';
 
 export const Navbar: React.FC = () => {
+    const { t } = useTranslation();
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -15,12 +18,12 @@ export const Navbar: React.FC = () => {
     }, []);
 
     const navItems = [
-        { label: 'Profile', href: '#profile' },
-        { label: 'Experience', href: '#experience' },
-        { label: 'Projects', href: '#projects' },
-        { label: 'Licenses & Achievements', href: '#certificates' },
-        { label: 'Skills', href: '#skills' },
-        { label: 'Contact', href: '#contact' },
+        { label: t('nav.profile'), href: '#profile' },
+        { label: t('nav.experience'), href: '#experience' },
+        { label: t('nav.projects'), href: '#projects' },
+        { label: t('nav.certificates'), href: '#certificates' },
+        { label: t('nav.skills'), href: '#skills' },
+        { label: t('nav.contact'), href: '#contact' },
     ];
 
     const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -77,7 +80,7 @@ export const Navbar: React.FC = () => {
                 <nav className="hidden lg:flex items-center space-x-7">
                     {navItems.map((item) => (
                         <a
-                            key={item.label}
+                            key={item.href}
                             href={item.href}
                             onClick={(e) => handleClick(e, item.href)}
                             className="text-sm font-medium text-gray-600 hover:text-[#881337] transition-colors relative py-1"
@@ -87,15 +90,17 @@ export const Navbar: React.FC = () => {
                     ))}
                 </nav>
 
-                {/* Desktop Right Actions: Contact CTA */}
-                <div className="hidden sm:flex items-center space-x-4">
+                {/* Desktop Right Actions: Language Switcher + GitHub + Contact CTA */}
+                <div className="hidden sm:flex items-center space-x-3.5">
+                    <LanguageSwitcher />
+
                     <a
                         href={PERSONAL_INFO.github}
                         target="_blank"
                         rel="noreferrer"
                         className="text-xs font-mono text-gray-500 hover:text-gray-900 transition-colors flex items-center gap-1"
                     >
-                        GitHub <ArrowUpRight className="w-3.5 h-3.5" />
+                        {t('nav.github')} <ArrowUpRight className="w-3.5 h-3.5" />
                     </a>
 
                     <a
@@ -103,12 +108,13 @@ export const Navbar: React.FC = () => {
                         onClick={(e) => handleClick(e, '#contact')}
                         className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white bg-[#881337] hover:bg-[#6d1230] rounded-md shadow-sm shadow-[#881337]/30 transition-all hover:shadow-[#881337]/50"
                     >
-                        Get In Touch
+                        {t('nav.getInTouch')}
                     </a>
                 </div>
 
                 {/* Mobile Right Bar */}
                 <div className="flex lg:hidden items-center space-x-2">
+                    <LanguageSwitcher compact />
                     <button
                         type="button"
                         onClick={() => setMobileOpen(!mobileOpen)}
@@ -126,7 +132,7 @@ export const Navbar: React.FC = () => {
                     <div className="flex flex-col space-y-3.5">
                         {navItems.map((item) => (
                             <a
-                                key={item.label}
+                                key={item.href}
                                 href={item.href}
                                 onClick={(e) => handleClick(e, item.href)}
                                 className="text-base font-medium text-gray-800 hover:text-[#881337] transition-colors py-1.5"
@@ -134,21 +140,25 @@ export const Navbar: React.FC = () => {
                                 {item.label}
                             </a>
                         ))}
-                        <div className="pt-4 border-t border-gray-200 flex flex-col space-y-2.5">
+                        <div className="pt-4 border-t border-gray-200 flex flex-col space-y-3">
+                            <div className="flex items-center justify-between py-1">
+                                <span className="text-xs font-mono font-medium text-gray-500 uppercase tracking-wider">{t('nav.switchLang')}</span>
+                                <LanguageSwitcher />
+                            </div>
                             <a
                                 href={PERSONAL_INFO.github}
                                 target="_blank"
                                 rel="noreferrer"
                                 className="text-sm text-gray-600 flex items-center justify-between"
                             >
-                                GitHub Profile <ArrowUpRight className="w-4 h-4" />
+                                {t('nav.githubProfile')} <ArrowUpRight className="w-4 h-4" />
                             </a>
                             <a
                                 href="#contact"
                                 onClick={(e) => handleClick(e, '#contact')}
                                 className="w-full text-center py-2.5 text-sm font-medium text-white bg-[#881337] rounded-md shadow-md"
                             >
-                                Let's Connect
+                                {t('nav.getInTouch')}
                             </a>
                         </div>
                     </div>

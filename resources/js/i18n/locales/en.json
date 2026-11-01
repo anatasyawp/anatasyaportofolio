@@ -1,0 +1,303 @@
+{
+  "meta": {
+    "title": "Anatasya Wenita Putri — Full-Stack Developer & Software Engineering Portfolio",
+    "description": "Portfolio of Anatasya Wenita Putri (Tasya). Fresh Graduate in D4 Software Engineering from IPB University. Full-Stack Developer with experience in Laravel, PHP, MySQL, JavaScript, and Software Quality Assurance at Pemerintah Kota Depok."
+  },
+  "nav": {
+    "profile": "Profile",
+    "experience": "Experience",
+    "projects": "Projects",
+    "certificates": "Licenses & Achievements",
+    "skills": "Skills",
+    "contact": "Contact",
+    "getInTouch": "Get In Touch",
+    "github": "GitHub",
+    "githubProfile": "GitHub Profile",
+    "switchLang": "Change language"
+  },
+  "profile": {
+    "status": "Fresh Graduate · Full-Stack Developer · Open to Opportunities",
+    "greeting": "Hello, I'm",
+    "name": "Anatasya.",
+    "subheadline": "A Full-Stack Developer and Software Engineering graduate passionate about building impactful web applications, crafting intuitive user experiences, and delivering reliable, high-quality software through thoughtful design and development.",
+    "connect": "Let's Connect",
+    "exploreProjects": "Explore Projects",
+    "cv": "CV",
+    "openToWork": "Open to Work",
+    "location": "Bogor / Depok / Jakarta, Indonesia"
+  },
+  "experience": {
+    "badge": "Career Pathway",
+    "scrollHint": "Scroll to explore roles",
+    "titleWork": "Work",
+    "titleExperience": "Experience",
+    "subtitle": "Practical software engineering experience across municipal web services, civil servant workflows, and student technical mentorship.",
+    "items": {
+      "asdos": {
+        "role": "Teaching Assistant",
+        "organization": "IPB University",
+        "location": "Bogor, Indonesia",
+        "period": "Jan 2026 – Jun 2026",
+        "description": "Department of Software Engineering Technology · Multimedia & UI/UX Lab.",
+        "achievements": [
+          "Guided 38 students across 14 hands-on practicum lab sessions in UI/UX prototyping and multimedia design using Figma and Pacdora.",
+          "Assisted faculty lecturers in tracking student project milestones, reviewing design deliverables, and providing actionable feedback."
+        ]
+      },
+      "pwk": {
+        "role": "Full-Stack Developer Intern",
+        "organization": "Pemerintah Kota Depok",
+        "location": "Depok, Indonesia",
+        "period": "Jan 2026 – May 2026",
+        "description": "Depok City Government · BKPSDM & Diskominfo Municipal Systems.",
+        "achievements": [
+          "Built 13 core features for the civil servant transfer module (PWK) using Laravel 11, PHP, MySQL, and JavaScript within a 4-month timeline.",
+          "Designed relational database schemas, modeled application workflows with UML, and created responsive frontend interfaces for civic staff.",
+          "Executed 46 Black Box test cases with a 100% pass rate and achieved a 95/100 System Usability Scale (SUS) score from department stakeholders."
+        ]
+      },
+      "skj": {
+        "role": "Full-Stack Developer Intern",
+        "organization": "Pemerintah Kota Depok",
+        "location": "Depok, Indonesia",
+        "period": "Aug 2025 – Dec 2025",
+        "description": "Depok City Government · Internal Municipal Web Services.",
+        "achievements": [
+          "Developed 8 interactive features for internal municipal systems using Laravel, PHP, JavaScript, jQuery, and MySQL.",
+          "Created dynamic frontend components using AJAX to streamline daily internal reporting and document verification.",
+          "Conducted 22 Black Box test scenarios to verify validation rules, boundary conditions, and system reliability before staging deployment."
+        ]
+      }
+    }
+  },
+  "education": {
+    "badge": "Academic Background",
+    "certified": "BNSP Certified",
+    "title": "Education",
+    "degreeType": "D4 Applied Bachelor",
+    "institution": "IPB University",
+    "degree": "Applied Bachelor’s Degree (D4)",
+    "major": "Software Engineering Technology",
+    "period": "2022 – 2026",
+    "achievementLabel": "Academic Achievement",
+    "gpaLabel": "Cumulative GPA",
+    "scopeLabel": "Key Academic & Engineering Scope:",
+    "highlights": [
+      "Core Focus: Full-Stack Web Development, Frontend Engineering, UI/UX Design, Software Testing (QA), and Relational Databases.",
+      "Applied Software Development Life Cycle (SDLC) methodologies across team-based web development projects.",
+      "Final Capstone Project: Development and Usability Testing of the Civil Servant Work Area Transfer Module for the Depok City Government.",
+      "Certified Software Engineer by BNSP (Badan Nasional Sertifikasi Profesi)."
+    ],
+    "readyStatus": "Ready for Full-Stack & Frontend Roles",
+    "classBadge": "Class of 2026"
+  },
+  "projects": {
+    "badge": "FEATURED PROJECTS · SHOWCASE",
+    "heading": "FEATURED",
+    "headingAccent": "PROJECTS",
+    "step": "STEP",
+    "of": "OF",
+    "desktopHint": "Use arrow keys to cycle · Click front card to open project",
+    "mobileHint": "Swipe to explore projects",
+    "active": "ACTIVE",
+    "next": "NEXT",
+    "role": "Role",
+    "openProject": "Open Project",
+    "viewProject": "View Project",
+    "client": "Client",
+    "period": "Period",
+    "productionReady": "Production Ready",
+    "assetsHeading": "PROJECT ASSETS & REPOSITORIES:",
+    "docLabel": "Documentation / SRS",
+    "liveLabel": "Live Web App",
+    "coreScope": "Core Engineering Scope",
+    "featureHighlights": "Feature Highlights",
+    "techStack": "TECH STACK:",
+    "prev": "PREV",
+    "nextBtn": "NEXT",
+    "items": {
+      "pwk": {
+        "title": "Modul Perpindahan Wilayah Kerja (PWK)",
+        "category": "Government & Enterprise",
+        "badge": "Enterprise Internship",
+        "period": "August – December 2025",
+        "client": "Pemerintah Kota Depok",
+        "role": "Full-Stack Developer Intern",
+        "summary": "Full-stack web module for managing civil servant work-area transfers and rotations at Pemerintah Kota Depok, featuring multi-tier approval workflows, automated document generation, and rigorous functional testing.",
+        "contributions": [
+          "Developed and implemented 13 functional features covering frontend interfaces, backend logic, and MySQL database operations using Laravel, PHP, and JavaScript.",
+          "Designed and built a relational MySQL database schema for tracking employee transfer history and work-unit placement data.",
+          "Contributed to requirements analysis, frontend interface implementation, and backend feature development for the PWK module.",
+          "Executed Black Box Testing across 46 test scenarios, achieving 100% pass rate to ensure application reliability.",
+          "Conducted System Usability Scale (SUS) evaluation resulting in a score of 95/100 (Grade A – Excellent) from 7 stakeholder respondents."
+        ],
+        "features": [
+          "Multi-tier Role Based Access Control (Applicant, BKPSDM Verifier, Department Head)",
+          "Digital Document Submission Workflow with Change Audit Log",
+          "Automated PDF SK Transfer Letter Generator & Digital Verification",
+          "Real-time Work Area Distribution Summary Dashboard"
+        ],
+        "metrics": [
+          { "label": "Features Developed", "value": "13 Features", "description": "End-to-end features completed over 4 months" },
+          { "label": "Testing Passed", "value": "46 / 46", "description": "100% Black Box Test scenarios passed" },
+          { "label": "SUS Usability Score", "value": "95 / 100", "description": "Grade A Excellent from 7 respondents" }
+        ]
+      },
+      "skj": {
+        "title": "Modul Pengajuan Standar Kompetensi Jabatan (SKJ)",
+        "category": "Government & Enterprise",
+        "badge": "Enterprise Internship",
+        "period": "August – November 2025",
+        "client": "Pemerintah Kota Depok",
+        "role": "Full-Stack Developer Intern",
+        "summary": "Full-stack web module for proposing, mapping, and standardizing technical and managerial competencies for government position classifications, built with Laravel, PHP, MySQL, and JavaScript.",
+        "contributions": [
+          "Developed and implemented 8 operational features across frontend interfaces, backend logic, and MySQL database integration over approximately 3 months.",
+          "Built a competency matrix validation module aligned with KemenPAN-RB standard guidelines, covering both frontend views and backend processing.",
+          "Implemented a review notification system and document version revision history using Laravel and MySQL.",
+          "Collaborated with team members to support requirements analysis and ensure application functionality aligned with user requirements.",
+          "Executed Black Box Testing to validate multi-tier approval flow integrity and access control per user session."
+        ],
+        "features": [
+          "Dynamic Competency Matrix Form with Automated Weighted Score Calculation",
+          "Multi-step Document Review Workflow (Draft, Technical Review, Final Approval)",
+          "Official Document Export for Competency Standards",
+          "Competency Document Version Change Log"
+        ],
+        "metrics": [
+          { "label": "Features Developed", "value": "8 Features", "description": "Implemented and tested within 3 months" },
+          { "label": "Testing Coverage", "value": "100% Passed", "description": "All functional test scenarios passed" },
+          { "label": "Audit Readiness", "value": "Compliant", "description": "Aligned with competency standard regulations" }
+        ]
+      },
+      "tasya-portfolio": {
+        "title": "Anatasya Interactive Portfolio",
+        "category": "UI/UX & Frontend",
+        "badge": "Personal & Open Source",
+        "period": "2026",
+        "client": "Personal Project",
+        "role": "Full-Stack Developer & UI/UX Designer",
+        "summary": "A modern full-stack portfolio website built with Laravel 12, Inertia.js, React, Tailwind CSS 4, and Motion — showcasing software engineering work with immersive UI/UX and interactive layered project showcases.",
+        "contributions": [
+          "Designed a clean, minimal UI/UX system with light/dark mode and smooth micro-animations.",
+          "Built the signature interactive component: Layered Image Parallax Showcase with desktop pointer control and responsive mobile reflow.",
+          "Architected a decoupled frontend-first SPA structure integrated with Laravel backend, ready for MySQL & RESTful CRUD."
+        ],
+        "features": [
+          "Editorial Hero Section with cursor parallax motion depth",
+          "Interactive Layered Image Showcase with case-study modal & detail view",
+          "Bilingual Language Switcher (Indonesian & English) with instant state toggle",
+          "Interactive contact channels with clipboard quick-copy and accessibility"
+        ],
+        "metrics": [
+          { "label": "Modern Stack", "value": "Inertia + React", "description": "Full-stack SPA without separate REST overhead" },
+          { "label": "Responsive Coverage", "value": "320px – 4K", "description": "Optimized across all devices and resolutions" }
+        ]
+      }
+    }
+  },
+  "certificates": {
+    "badge": "CREDENTIALS · CERTIFICATIONS · ACHIEVEMENTS",
+    "title": "Licenses &",
+    "titleAccent": "Achievements",
+    "subtitle": "Verified professional software engineering certifications, QA bootcamp credentials, and national competition awards.",
+    "viewCertificate": "View Certificate",
+    "verifiedCredential": "Verified Credential",
+    "associatedWith": "Associated with:",
+    "hint": "Swipe or use arrow buttons to explore",
+    "items": {
+      "cert-bajau": {
+        "title": "Mini Bootcamp Software Testing",
+        "category": "Software Testing & QA",
+        "badge": "Bootcamp Graduate",
+        "description": "Comprehensive software testing training covering manual testing practices, test cases design, defect reporting, and test execution."
+      },
+      "cert-bnsp": {
+        "title": "BNSP Certified Software Engineer",
+        "category": "National Competency Certification",
+        "badge": "BNSP National Certified",
+        "description": "National professional certification validating competencies in software engineering, architecture, SDLC implementation, and code reliability."
+      },
+      "cert-myskill": {
+        "title": "Short Class Data Visualization with Microsoft Excel",
+        "category": "Data Analysis & Analytics",
+        "badge": "MySkill Certified",
+        "description": "Specialized course in transforming raw data into visual dashboards, dynamic charting, and actionable business insights using Microsoft Excel."
+      },
+      "cert-bwa": {
+        "title": "Complete UI Designer: Visual Design, Prototype, Usability Testing",
+        "category": "UI/UX Design",
+        "badge": "Industry Design Certificate",
+        "description": "Comprehensive UI design masterclass focusing on design systems, high-fidelity wireframing, component tokens, interactive prototyping, and usability testing."
+      },
+      "ach-airef": {
+        "title": "3rd Place AIReF Poster Competition",
+        "category": "National Competition",
+        "badge": "3rd Place Winner",
+        "description": "AIReF National Poster Competition organized by International Relations (HIMASHI) Universitas Andalas, creating visual design communications for public awareness."
+      },
+      "ach-harvest": {
+        "title": "3rd Place Harvest Pangan Chapter X Infographics Competition",
+        "category": "National Competition",
+        "badge": "3rd Place Winner",
+        "description": "Harvest Pangan Chapter X Infographics Competition organized by HMITP Universitas Bakrie with the theme 'Pangan Nusantara Kaya Akan Rasa dan Mendukung Keberlanjutan Lingkungan'."
+      }
+    }
+  },
+  "skills": {
+    "badge": "Core Tech Stack & Tools",
+    "title": "Skills &",
+    "titleAccent": "Technologies",
+    "subtitle": "Programming languages, frameworks, databases, and testing tools used in building reliable web applications.",
+    "toolsCount": "{{count}} Tools & Technologies",
+    "categories": {
+      "Frontend Development": {
+        "name": "Frontend Development",
+        "description": "Building responsive, accessible, and interactive web interfaces."
+      },
+      "Backend & Database": {
+        "name": "Backend & Database",
+        "description": "Developing application logic, secure APIs, and relational schemas."
+      },
+      "Creative & Design": {
+        "name": "Creative & Design",
+        "description": "UI/UX design, visual prototyping, video assets, and creative photo editing."
+      },
+      "Testing, Tools & AI": {
+        "name": "Testing, Tools & AI",
+        "description": "Quality assurance, usability testing, version control, and AI-assisted engineering."
+      }
+    }
+  },
+  "contact": {
+    "badge": "Get In Touch",
+    "title": "Let's connect and",
+    "titleAccent": "build together.",
+    "subtitle": "Available for Full-Stack Developer, Frontend & Web Engineering, and Software Quality Assurance roles. Feel free to reach out through any channel below:",
+    "channels": {
+      "linkedin": {
+        "badge": "Connect",
+        "description": "Professional experience, recommendations & networking"
+      },
+      "instagram": {
+        "badge": "Follow",
+        "description": "Personal activities, creative moments & life updates"
+      },
+      "gmail": {
+        "badge": "Send Email",
+        "description": "Send formal inquiries, job offers or project proposals"
+      },
+      "github": {
+        "badge": "Follow",
+        "description": "Explore full repositories, modular code & web prototypes"
+      }
+    },
+    "copyEmail": "Copy Email Address",
+    "copied": "Copied!",
+    "visitProfile": "Visit Profile",
+    "locationAvailability": "Location & Availability",
+    "availableBadge": "Available for Full-Time / Project",
+    "allRights": "All rights reserved.",
+    "builtWith": "Built with Laravel 12, Inertia.js, React & Tailwind CSS"
+  }
+}

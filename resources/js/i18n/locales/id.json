@@ -1,0 +1,303 @@
+{
+  "meta": {
+    "title": "Anatasya Wenita Putri — Portofolio Full-Stack Developer & Rekayasa Perangkat Lunak",
+    "description": "Portofolio Anatasya Wenita Putri (Tasya). Lulusan D4 Teknologi Rekayasa Perangkat Lunak IPB University. Full-Stack Developer berpengalaman dalam Laravel, PHP, MySQL, JavaScript, dan Software Quality Assurance di Pemerintah Kota Depok."
+  },
+  "nav": {
+    "profile": "Profil",
+    "experience": "Pengalaman",
+    "projects": "Proyek",
+    "certificates": "Lisensi & Prestasi",
+    "skills": "Keahlian",
+    "contact": "Kontak",
+    "getInTouch": "Hubungi Saya",
+    "github": "GitHub",
+    "githubProfile": "Profil GitHub",
+    "switchLang": "Ubah bahasa"
+  },
+  "profile": {
+    "status": "Fresh Graduate · Full-Stack Developer · Terbuka untuk Peluang Kerja",
+    "greeting": "Halo, saya",
+    "name": "Anatasya.",
+    "subheadline": "Full-Stack Developer dan lulusan Rekayasa Perangkat Lunak yang berdedikasi menciptakan aplikasi web berdampak nyata, merancang pengalaman pengguna yang intuitif, serta menghadirkan perangkat lunak berkualitas tinggi dan andal melalui perancangan yang matang.",
+    "connect": "Hubungi Saya",
+    "exploreProjects": "Jelajahi Proyek",
+    "cv": "CV",
+    "openToWork": "Siap Bekerja",
+    "location": "Bogor / Depok / Jakarta, Indonesia"
+  },
+  "experience": {
+    "badge": "Jejak Karier",
+    "scrollHint": "Gulir untuk melihat riwayat",
+    "titleWork": "Pengalaman",
+    "titleExperience": "Kerja",
+    "subtitle": "Pengalaman rekayasa perangkat lunak praktis pada layanan web instansi pemerintahan, alur kerja aparatur sipil negara, dan bimbingan teknis mahasiswa.",
+    "items": {
+      "asdos": {
+        "role": "Asisten Dosen & Praktikum",
+        "organization": "IPB University",
+        "location": "Bogor, Indonesia",
+        "period": "Jan 2026 – Jun 2026",
+        "description": "Departemen Teknologi Rekayasa Perangkat Lunak · Lab Multimedia & UI/UX.",
+        "achievements": [
+          "Membimbing 38 mahasiswa dalam 14 sesi praktikum langsung mencakup pembuatan prototipe UI/UX dan desain multimedia menggunakan Figma dan Pacdora.",
+          "Mendampingi dosen dalam memantau capaian proyek mahasiswa, mengevaluasi luaran desain, dan memberikan masukan konstruktif."
+        ]
+      },
+      "pwk": {
+        "role": "Intern Full-Stack Developer",
+        "organization": "Pemerintah Kota Depok",
+        "location": "Depok, Indonesia",
+        "period": "Jan 2026 – Mei 2026",
+        "description": "Pemerintah Kota Depok · Sistem Kepegawaian BKPSDM & Diskominfo.",
+        "achievements": [
+          "Mengembangkan 13 fitur fungsional utama pada modul Perpindahan Wilayah Kerja (PWK) menggunakan Laravel 11, PHP, MySQL, dan JavaScript dalam rentang waktu 4 bulan.",
+          "Merancang skema basis data relasional, memodelkan alur sistem dengan UML, serta membangun antarmuka web responsif untuk kebutuhan aparatur sipil.",
+          "Melaksanakan 46 skenario Black Box Testing dengan tingkat kelulusan 100% dan memperoleh skor System Usability Scale (SUS) 95/100 dari para pemangku kepentingan."
+        ]
+      },
+      "skj": {
+        "role": "Intern Full-Stack Developer",
+        "organization": "Pemerintah Kota Depok",
+        "location": "Depok, Indonesia",
+        "period": "Agu 2025 – Des 2025",
+        "description": "Pemerintah Kota Depok · Layanan Web Internal Pemerintah Kota.",
+        "achievements": [
+          "Mengembangkan 8 fitur operasional sistem tata kelola internal menggunakan Laravel, PHP, JavaScript, jQuery, dan MySQL.",
+          "Membangun komponen antarmuka dinamis berbasis AJAX untuk mempercepat pelaporan internal harian dan verifikasi dokumen jabatan.",
+          "Menjalankan 22 skenario Black Box Testing guna menguji aturan validasi, nilai batas, dan keandalan sistem sebelum penempatan ke server staging."
+        ]
+      }
+    }
+  },
+  "education": {
+    "badge": "Latar Belakang Akademis",
+    "certified": "Tersertifikasi BNSP",
+    "title": "Pendidikan",
+    "degreeType": "Sarjana Terapan (D4)",
+    "institution": "IPB University",
+    "degree": "Sarjana Terapan (D4)",
+    "major": "Teknologi Rekayasa Perangkat Lunak",
+    "period": "2022 – 2026",
+    "achievementLabel": "Capaian Akademik",
+    "gpaLabel": "IPK Kumulatif",
+    "scopeLabel": "Fokus Akademik & Keilmuan Rekayasa:",
+    "highlights": [
+      "Fokus Utama: Pengembangan Web Full-Stack, Rekayasa Frontend, Desain UI/UX, Pengujian Perangkat Lunak (QA), dan Basis Data Relasional.",
+      "Penerapan metodologi Software Development Life Cycle (SDLC) dalam berbagai proyek rekayasa perangkat lunak kolaboratif.",
+      "Tugas Akhir / Skripsi: Rancang Bangun dan Evaluasi Usabilitas Modul Perpindahan Wilayah Kerja Aparatur Sipil Negara Pemerintah Kota Depok.",
+      "Tersertifikasi Kompetensi Software Engineer oleh BNSP (Badan Nasional Sertifikasi Profesi)."
+    ],
+    "readyStatus": "Siap untuk Posisi Full-Stack & Frontend",
+    "classBadge": "Angkatan 2026"
+  },
+  "projects": {
+    "badge": "PROYEK UNGGULAN · PORTOFOLIO",
+    "heading": "PROYEK",
+    "headingAccent": "UNGGULAN",
+    "step": "LANGKAH",
+    "of": "DARI",
+    "desktopHint": "Gunakan tombol panah untuk navigasi · Klik kartu depan untuk rincian proyek",
+    "mobileHint": "Geser untuk melihat proyek lain",
+    "active": "AKTIF",
+    "next": "SELANJUTNYA",
+    "role": "Peran",
+    "openProject": "Buka Proyek",
+    "viewProject": "Lihat Proyek",
+    "client": "Instansi",
+    "period": "Periode",
+    "productionReady": "Siap Produksi",
+    "assetsHeading": "ASET PROYEK & REPOSITORI:",
+    "docLabel": "Dokumentasi / SRS",
+    "liveLabel": "Aplikasi Web Live",
+    "coreScope": "Cakupan Rekayasa & Implementasi",
+    "featureHighlights": "Sorotan Fitur Utama",
+    "techStack": "TEKNOLOGI:",
+    "prev": "SEBELUMNYA",
+    "nextBtn": "BERIKUTNYA",
+    "items": {
+      "pwk": {
+        "title": "Modul Perpindahan Wilayah Kerja (PWK)",
+        "category": "Pemerintahan & Enterprise",
+        "badge": "Magang Industri",
+        "period": "Agustus – Desember 2025",
+        "client": "Pemerintah Kota Depok",
+        "role": "Intern Full-Stack Developer",
+        "summary": "Modul web full-stack untuk mengelola proses rotasi dan perpindahan wilayah kerja ASN di Pemerintah Kota Depok, dilengkapi alur persetujuan bertingkat, pembuatan dokumen otomatis, dan pengujian fungsional komprehensif.",
+        "contributions": [
+          "Mengembangkan dan menerapkan 13 fitur fungsional meliputi antarmuka frontend, logika backend, dan operasi basis data MySQL menggunakan Laravel, PHP, dan JavaScript.",
+          "Merancang dan membangun skema basis data relasional MySQL untuk mencatat riwayat pemindahan pegawai dan penempatan unit kerja.",
+          "Berkontribusi dalam analisis kebutuhan pengguna, implementasi antarmuka frontend, dan pengembangan fitur backend modul PWK.",
+          "Melakukan Black Box Testing pada 46 skenario pengujian dengan tingkat kelulusan 100% guna menjamin keandalan aplikasi.",
+          "Melaksanakan evaluasi System Usability Scale (SUS) dan meraih skor 95/100 (Grade A – Excellent) dari 7 responden pemangku kepentingan."
+        ],
+        "features": [
+          "Kontrol Akses Berbasis Peran Bertingkat (Pemohon, Verifikator BKPSDM, Kepala Badan)",
+          "Alur Pengajuan Dokumen Digital Lengkap dengan Catatan Audit Perubahan",
+          "Penerbitan Surat Keputusan (SK) Pemindahan Otomatis Berformat PDF & Verifikasi Digital",
+          "Dasbor Pemetaan Distribusi Penempatan Wilayah Kerja ASN Secara Real-Time"
+        ],
+        "metrics": [
+          { "label": "Fitur Dikembangkan", "value": "13 Fitur", "description": "Fitur menyeluruh selesai dalam rentang 4 bulan" },
+          { "label": "Pengujian Lulus", "value": "46 / 46", "description": "100% skenario Black Box lulus pengujian" },
+          { "label": "Skor Usabilitas SUS", "value": "95 / 100", "description": "Grade A Unggul dari 7 responden penguji" }
+        ]
+      },
+      "skj": {
+        "title": "Modul Pengajuan Standar Kompetensi Jabatan (SKJ)",
+        "category": "Pemerintahan & Enterprise",
+        "badge": "Magang Industri",
+        "period": "Agustus – November 2025",
+        "client": "Pemerintah Kota Depok",
+        "role": "Intern Full-Stack Developer",
+        "summary": "Modul web full-stack untuk pengajuan, pemetaan, dan standardisasi kompetensi teknis serta manajerial jabatan ASN, dikembangkan menggunakan Laravel, PHP, MySQL, dan JavaScript.",
+        "contributions": [
+          "Mengembangkan dan menerapkan 8 fitur operasional pada antarmuka frontend, logika backend, dan integrasi basis data MySQL selama kurang lebih 3 bulan.",
+          "Membangun modul validasi matriks kompetensi jabatan sesuai regulasi KemenPAN-RB, mencakup tampilan formulir dan pemrosesan backend.",
+          "Mengimplementasikan sistem notifikasi peninjauan dan riwayat revisi versi dokumen menggunakan Laravel dan MySQL.",
+          "Bekerja sama dalam tim untuk mendukung analisis kebutuhan dan memastikan fungsionalitas aplikasi selaras dengan kebutuhan instansi.",
+          "Melakukan Black Box Testing untuk menguji integritas alur persetujuan bertingkat dan hak akses sesi pengguna."
+        ],
+        "features": [
+          "Formulir Matriks Kompetensi Dinamis dengan Perhitungan Bobot Nilai Otomatis",
+          "Alur Peninjauan Dokumen Bertahap (Draf, Telaah Teknis, Persetujuan Akhir)",
+          "Ekspor Dokumen Resmi Format Standar Kompetensi Jabatan",
+          "Catatan Riwayat Perubahan dan Versi Dokumen Kompetensi"
+        ],
+        "metrics": [
+          { "label": "Fitur Dikembangkan", "value": "8 Fitur", "description": "Diimplementasikan dan diuji dalam rentang 3 bulan" },
+          { "label": "Cakupan Pengujian", "value": "100% Lulus", "description": "Seluruh skenario pengujian fungsional berhasil lulus" },
+          { "label": "Kesiapan Audit", "value": "Sesuai Standar", "description": "Selaras dengan regulasi standar kompetensi jabatan" }
+        ]
+      },
+      "tasya-portfolio": {
+        "title": "Portofolio Interaktif Anatasya",
+        "category": "UI/UX & Rekayasa Frontend",
+        "badge": "Proyek Pribadi & Open Source",
+        "period": "2026",
+        "client": "Proyek Pribadi",
+        "role": "Full-Stack Developer & Desainer UI/UX",
+        "summary": "Situs portofolio full-stack modern yang dibangun menggunakan Laravel 12, Inertia.js, React, Tailwind CSS 4, dan Motion — menampilkan karya rekayasa perangkat lunak melalui antarmuka interaktif dan showcase visual berlapis.",
+        "contributions": [
+          "Merancang sistem UI/UX minimalis yang bersih dengan tata letak modern dan mikro-animasi halus.",
+          "Membangun komponen interaktif unggulan: Showcase Paralaks Gambar Berlapis dengan kontrol kursor desktop dan tata letak responsif di ponsel.",
+          "Merancang arsitektur SPA frontend modern yang terintegrasi dengan backend Laravel, siap untuk integrasi CRUD RESTful dan MySQL."
+        ],
+        "features": [
+          "Bagian Hero editorial dengan efek kedalaman paralaks interaktif",
+          "Showcase gambar interaktif berlapis dengan modal studi kasus dan tampilan detail",
+          "Pengalih Bahasa Bilingual (Indonesia & Inggris) dengan transisi mulus tanpa memuat ulang halaman",
+          "Kanal kontak interaktif dengan fitur salin cepat ke clipboard dan aksesibilitas tinggi"
+        ],
+        "metrics": [
+          { "label": "Teknologi Modern", "value": "Inertia + React", "description": "SPA full-stack tanpa latensi overhead REST terpisah" },
+          { "label": "Responsivitas", "value": "320px – 4K", "description": "Optimal di segala ukuran layar perangkat" }
+        ]
+      }
+    }
+  },
+  "certificates": {
+    "badge": "KREDENSIAL · SERTIFIKASI · PRESTASI",
+    "title": "Lisensi &",
+    "titleAccent": "Prestasi",
+    "subtitle": "Sertifikasi profesi rekayasa perangkat lunak resmi, kelulusan bootcamp QA, dan penghargaan kompetisi tingkat nasional.",
+    "viewCertificate": "Lihat Sertifikat",
+    "verifiedCredential": "Kredensial Terverifikasi",
+    "associatedWith": "Berasosiasi dengan:",
+    "hint": "Geser atau gunakan tombol panah untuk menelusuri",
+    "items": {
+      "cert-bajau": {
+        "title": "Mini Bootcamp Software Testing",
+        "category": "Software Testing & QA",
+        "badge": "Lulusan Bootcamp",
+        "description": "Pelatihan intensif pengujian perangkat lunak komprehensif mencakup manual testing, perancangan skenario uji (test cases), pelaporan defect, dan eksekusi pengujian."
+      },
+      "cert-bnsp": {
+        "title": "Sertifikasi Profesi Software Engineer BNSP",
+        "category": "Sertifikasi Kompetensi Nasional",
+        "badge": "Tersertifikasi Nasional BNSP",
+        "description": "Sertifikasi profesi tingkat nasional yang memvalidasi kompetensi dalam rekayasa perangkat lunak, arsitektur sistem, penerapan SDLC, dan keandalan kode sumber."
+      },
+      "cert-myskill": {
+        "title": "Short Class Visualisasi Data dengan Microsoft Excel",
+        "category": "Analisis & Visualisasi Data",
+        "badge": "Sertifikasi MySkill",
+        "description": "Kursus spesialisasi dalam mengolah data mentah menjadi dasbor visual, grafik analitik dinamis, dan wawasan bisnis menggunakan Microsoft Excel."
+      },
+      "cert-bwa": {
+        "title": "Complete UI Designer: Visual Design, Prototype, Usability Testing",
+        "category": "Desain UI/UX",
+        "badge": "Sertifikat Industri Desain",
+        "description": "Kelas profesional UI design yang berfokus pada perancangan design system, wireframe resolusi tinggi, token komponen, prototipe interaktif, dan usability testing."
+      },
+      "ach-airef": {
+        "title": "Juara 3 AIReF Poster Competition",
+        "category": "Kompetisi Nasional",
+        "badge": "Juara 3 Nasional",
+        "description": "Kompetisi Desain Poster AIReF tingkat nasional yang diselenggarakan oleh HIMASHI Universitas Andalas, menciptakan media komunikasi visual untuk edukasi publik."
+      },
+      "ach-harvest": {
+        "title": "Juara 3 Harvest Pangan Chapter X Infographics Competition",
+        "category": "Kompetisi Nasional",
+        "badge": "Juara 3 Nasional",
+        "description": "Kompetisi Infografis Harvest Pangan Chapter X tingkat nasional oleh HMITP Universitas Bakrie dengan tema 'Pangan Nusantara Kaya Akan Rasa dan Mendukung Keberlanjutan Lingkungan'."
+      }
+    }
+  },
+  "skills": {
+    "badge": "Teknologi & Perangkat Utama",
+    "title": "Keahlian &",
+    "titleAccent": "Teknologi",
+    "subtitle": "Bahasa pemrograman, kerangka kerja, basis data, dan perangkat pengujian untuk membangun aplikasi web yang andal.",
+    "toolsCount": "{{count}} Perangkat & Teknologi",
+    "categories": {
+      "Frontend Development": {
+        "name": "Pengembangan Frontend",
+        "description": "Membangun antarmuka web responsif, aksesibel, dan interaktif."
+      },
+      "Backend & Database": {
+        "name": "Backend & Basis Data",
+        "description": "Mengembangkan logika aplikasi, API yang aman, dan skema basis data relasional."
+      },
+      "Creative & Design": {
+        "name": "Desain & Kreatif",
+        "description": "Desain UI/UX, prototipe visual, aset video, dan penyuntingan foto kreatif."
+      },
+      "Testing, Tools & AI": {
+        "name": "Pengujian, Tools & AI",
+        "description": "Software quality assurance, usability testing, version control, dan rekayasa berbantuan AI."
+      }
+    }
+  },
+  "contact": {
+    "badge": "Kontak & Diskusi",
+    "title": "Mari terhubung dan",
+    "titleAccent": "berkarya bersama.",
+    "subtitle": "Terbuka untuk posisi Full-Stack Developer, Frontend & Rekayasa Web, serta Software Quality Assurance. Jangan ragu untuk menghubungi melalui kanal berikut:",
+    "channels": {
+      "linkedin": {
+        "badge": "Terhubung",
+        "description": "Pengalaman profesional, rekomendasi & jejaring karier"
+      },
+      "instagram": {
+        "badge": "Ikuti",
+        "description": "Aktivitas personal, momen kreatif & kabar terbaru"
+      },
+      "gmail": {
+        "badge": "Kirim Email",
+        "description": "Kirimkan penawaran kerja, peluang proyek, atau kolaborasi resmi"
+      },
+      "github": {
+        "badge": "Ikuti",
+        "description": "Jelajahi repositori kode, arsitektur modular & prototipe web"
+      }
+    },
+    "copyEmail": "Salin Alamat Email",
+    "copied": "Tersalin!",
+    "visitProfile": "Buka Profil",
+    "locationAvailability": "Lokasi & Ketersediaan",
+    "availableBadge": "Siap untuk Full-Time / Kontrak Proyek",
+    "allRights": "Hak cipta dilindungi undang-undang.",
+    "builtWith": "Dibangun dengan Laravel 12, Inertia.js, React & Tailwind CSS"
+  }
+}

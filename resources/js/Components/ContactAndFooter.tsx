@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'motion/react';
 import { Mail, MapPin, ArrowUpRight, Copy, Check } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
@@ -11,6 +12,7 @@ const fadeUp = (delay = 0) => ({
 });
 
 export const ContactAndFooter: React.FC = () => {
+    const { t } = useTranslation();
     const [copiedEmail, setCopiedEmail] = useState(false);
     const { ref, inView } = useScrollReveal(0.07);
 
@@ -23,36 +25,39 @@ export const ContactAndFooter: React.FC = () => {
 
     const channels = [
         {
+            key: 'linkedin',
             name: 'LinkedIn',
             handle: 'anatasyawp',
             url: PERSONAL_INFO.linkedin,
             icon: LinkedinIcon,
-            description: 'Professional experience, recommendations & networking',
-            badge: 'Connect',
+            description: t('contact.channels.linkedin.description'),
+            badge: t('contact.channels.linkedin.badge'),
             accentColor: '#0077B5',
             hoverBorder: 'hover:border-[#0077B5]/40',
             hoverBg:     'hover:bg-[#0077B5]/[0.03]',
             badgeColor:  'bg-[#0077B5]/10 text-[#0077B5]',
         },
         {
+            key: 'instagram',
             name: 'Instagram',
             handle: 'anatasyawp_',
             url: PERSONAL_INFO.instagram || 'https://instagram.com/anatasyawp_',
             icon: InstagramIcon,
-            description: 'Personal activities, creative moments & life updates',
-            badge: 'Follow',
+            description: t('contact.channels.instagram.description'),
+            badge: t('contact.channels.instagram.badge'),
             accentColor: '#E1306C',
             hoverBorder: 'hover:border-[#E1306C]/40',
             hoverBg:     'hover:bg-[#E1306C]/[0.03]',
             badgeColor:  'bg-[#E1306C]/10 text-[#E1306C]',
         },
         {
+            key: 'gmail',
             name: 'Gmail',
             handle: PERSONAL_INFO.email,
             url: `mailto:${PERSONAL_INFO.email}`,
             icon: Mail,
-            description: 'Send formal inquiries, job offers or project proposals',
-            badge: 'Send Email',
+            description: t('contact.channels.gmail.description'),
+            badge: t('contact.channels.gmail.badge'),
             accentColor: '#EA4335',
             hoverBorder: 'hover:border-[#EA4335]/40',
             hoverBg:     'hover:bg-[#EA4335]/[0.03]',
@@ -60,12 +65,13 @@ export const ContactAndFooter: React.FC = () => {
             hasCopy: true,
         },
         {
+            key: 'github',
             name: 'GitHub',
             handle: 'anatasyawp',
             url: PERSONAL_INFO.github,
             icon: GithubIcon,
-            description: 'Explore full repositories, modular code & web prototypes',
-            badge: 'Follow',
+            description: t('contact.channels.github.description'),
+            badge: t('contact.channels.github.badge'),
             accentColor: '#24292e',
             hoverBorder: 'hover:border-gray-800/40',
             hoverBg:     'hover:bg-gray-900/[0.03]',
@@ -99,20 +105,19 @@ export const ContactAndFooter: React.FC = () => {
                 >
                     <motion.div variants={fadeUp()} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#881337]/08 border border-[#881337]/20 text-[#881337] font-mono text-xs uppercase tracking-widest mb-3">
                         <Mail className="w-3.5 h-3.5" />
-                        <span>Get In Touch</span>
+                        <span>{t('contact.badge')}</span>
                     </motion.div>
 
                     <motion.h2 variants={fadeUp(0.05)} className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-4">
-                        Let's connect and{' '}
+                        {t('contact.title')}{' '}
                         <span className="text-[#881337] font-serif italic font-normal relative">
-                            build together.
+                            {t('contact.titleAccent')}
                             <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-[#881337]/60 to-transparent rounded-full" />
                         </span>
                     </motion.h2>
 
                     <motion.p variants={fadeUp(0.1)} className="text-sm sm:text-base text-gray-600 leading-relaxed max-w-2xl mx-auto">
-                        Available for <strong>Full-Stack Developer</strong>, <strong>Frontend & Web Engineering</strong>,{' '}
-                        and software quality assurance roles. Feel free to reach out through any channel below:
+                        {t('contact.subtitle')}
                     </motion.p>
                 </motion.div>
 
@@ -170,19 +175,19 @@ export const ContactAndFooter: React.FC = () => {
                                             {copiedEmail ? (
                                                 <>
                                                     <Check className="w-3.5 h-3.5 text-emerald-600" />
-                                                    <span className="text-emerald-700">Copied!</span>
+                                                    <span className="text-emerald-700">{t('contact.copied')}</span>
                                                 </>
                                             ) : (
                                                 <>
                                                     <Copy className="w-3.5 h-3.5" />
-                                                    <span>Copy Email Address</span>
+                                                    <span>{t('contact.copyEmail')}</span>
                                                 </>
                                             )}
                                         </button>
                                     </div>
                                 ) : (
                                     <div className="mt-6 pt-4 border-t border-gray-200/60 flex items-center justify-between text-xs font-mono text-gray-400 group-hover:text-gray-700 transition-colors">
-                                        <span>Visit Profile</span>
+                                        <span>{t('contact.visitProfile')}</span>
                                         <span>→</span>
                                     </div>
                                 )}
@@ -203,23 +208,23 @@ export const ContactAndFooter: React.FC = () => {
                             <MapPin className="w-5 h-5" />
                         </div>
                         <div>
-                            <div className="text-xs text-gray-500 font-mono">Location & Availability</div>
-                            <div className="text-sm font-bold text-gray-900">{PERSONAL_INFO.location}</div>
+                            <div className="text-xs text-gray-500 font-mono">{t('contact.locationAvailability')}</div>
+                            <div className="text-sm font-bold text-gray-900">{t('profile.location', { defaultValue: PERSONAL_INFO.location })}</div>
                         </div>
                     </div>
 
                     <div className="flex items-center gap-2">
                         <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
                         <span className="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">
-                            Available for Full-Time / Project
+                            {t('contact.availableBadge')}
                         </span>
                     </div>
                 </motion.div>
 
                 {/* ── Subfooter ─────────────────────────────────────────── */}
                 <div className="pt-8 border-t border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500 font-mono">
-                    <div>© {new Date().getFullYear()} {PERSONAL_INFO.name}. All rights reserved.</div>
-                    <div>Built with Laravel 12, Inertia.js, React &amp; Tailwind CSS</div>
+                    <div>© {new Date().getFullYear()} {PERSONAL_INFO.name}. {t('contact.allRights')}</div>
+                    <div>{t('contact.builtWith')}</div>
                 </div>
 
             </div>

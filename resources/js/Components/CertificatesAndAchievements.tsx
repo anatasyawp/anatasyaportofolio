@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { CERTIFICATES } from '../data/portfolioData';
 import { Achievement, Certificate, License } from '../types/portfolio';
 import { Trophy, ExternalLink, Calendar, ChevronLeft, ChevronRight, ShieldCheck } from 'lucide-react';
@@ -49,17 +50,30 @@ export const CertificatesAndAchievements: React.FC<CertificatesAndAchievementsPr
     achievements = [],
     certificates,
 }) => {
+    const { t } = useTranslation();
     const shouldReduceMotion = useReducedMotion();
     const [activeIndex, setActiveIndex] = useState<number>(0);
     const { ref: sectionRef, inView } = useScrollReveal(0.07);
 
     const fromDatabase = [...mapLicenses(licenses), ...mapAchievements(achievements)];
-    const certificateList =
+    const rawList =
         fromDatabase.length > 0
             ? fromDatabase
             : certificates && certificates.length > 0
                 ? certificates
                 : CERTIFICATES;
+
+    const certificateList = rawList.map((item) => {
+        const itemKey = item.id;
+        return {
+            ...item,
+            title: t(`certificates.items.${itemKey}.title`, { defaultValue: item.title }),
+            category: t(`certificates.items.${itemKey}.category`, { defaultValue: item.category }),
+            badge: t(`certificates.items.${itemKey}.badge`, { defaultValue: item.badge || item.category }),
+            description: t(`certificates.items.${itemKey}.description`, { defaultValue: item.description }),
+        };
+    });
+
     const totalItems = certificateList.length;
 
     const handlePrev = () => {
@@ -95,13 +109,13 @@ export const CertificatesAndAchievements: React.FC<CertificatesAndAchievementsPr
                     <div>
                         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#881337]/08 border border-[#881337]/20 text-xs font-mono text-[#881337] mb-3">
                             <Trophy className="w-3.5 h-3.5" />
-                            <span>CREDENTIALS · CERTIFICATIONS · ACHIEVEMENTS</span>
+                            <span>{t('certificates.badge')}</span>
                         </div>
                         <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">
-                            Licenses & <span className="text-[#881337] font-serif italic font-normal">Achievements</span>
+                            {t('certificates.title')} <span className="text-[#881337] font-serif italic font-normal">{t('certificates.titleAccent')}</span>
                         </h2>
                         <p className="text-sm text-gray-600 mt-2 max-w-xl">
-                            Verified professional software engineering certifications, QA bootcamp credentials, and national competition awards.
+                            {t('certificates.subtitle')}
                         </p>
                     </div>
 
@@ -194,7 +208,7 @@ export const CertificatesAndAchievements: React.FC<CertificatesAndAchievementsPr
                                                 ? 'bg-amber-500/90 text-white shadow-sm'
                                                 : 'bg-[#881337]/90 text-white shadow-sm'
                                         }`}>
-                                            {item.badge || item.category}
+                                            {item.badge}
                                         </span>
                                         <div className="flex items-center gap-1 text-[11px] font-mono text-gray-300 bg-black/40 px-2.5 py-1 rounded-full backdrop-blur-md">
                                             <Calendar className="w-3 h-3 text-rose-300" />
@@ -213,7 +227,7 @@ export const CertificatesAndAchievements: React.FC<CertificatesAndAchievementsPr
 
                                         {item.association && (
                                             <p className="text-[11px] text-gray-300 font-sans mb-2">
-                                                Associated with: <span className="font-semibold text-white">{item.association}</span>
+                                                {t('certificates.associatedWith')} <span className="font-semibold text-white">{item.association}</span>
                                             </p>
                                         )}
 
@@ -241,15 +255,15 @@ export const CertificatesAndAchievements: React.FC<CertificatesAndAchievementsPr
                                                 target="_blank"
                                                 rel="noreferrer"
                                                 onClick={(e) => e.stopPropagation()}
-                                                className="w-full py-2 px-3 rounded-xl bg-white hover:bg-gray-100 text-gray-950 font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition-all hover:scale-102"
+                                                className="w-full py-2 px-3 rounded-xl bg-white hover:bg-gray-100 text-gray-950 font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition-all hover:scale-102 cursor-pointer"
                                             >
-                                                <span>View Certificate</span>
+                                                <span>{t('certificates.viewCertificate')}</span>
                                                 <ExternalLink className="w-3.5 h-3.5 text-[#881337]" />
                                             </a>
                                         ) : (
                                             <div className="py-1 text-[11px] font-mono text-gray-400 flex items-center gap-1">
                                                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                                                <span>Verified Credential</span>
+                                                <span>{t('certificates.verifiedCredential')}</span>
                                             </div>
                                         )}
                                     </div>
@@ -269,7 +283,7 @@ export const CertificatesAndAchievements: React.FC<CertificatesAndAchievementsPr
                             {activeItem?.credentialId && (
                                 <span>ID: <strong className="text-gray-900">{activeItem.credentialId}</strong> · </span>
                             )}
-                            <span>Swipe or use arrow buttons to explore</span>
+                            <span>{t('certificates.hint')}</span>
                         </div>
                     </div>
 
@@ -295,4 +309,3 @@ export const CertificatesAndAchievements: React.FC<CertificatesAndAchievementsPr
         </section>
     );
 };
-

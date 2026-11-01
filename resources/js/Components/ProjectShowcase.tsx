@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion, useReducedMotion, AnimatePresence } from 'motion/react';
 import { PROJECTS } from '../data/portfolioData';
 import { Project } from '../types/portfolio';
-import { ArrowUpRight, FileText, Eye, Zap, ChevronLeft, ChevronRight, Layers, Sparkles } from 'lucide-react';
+import { ArrowUpRight, FileText, Eye, Zap, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useScrollReveal } from '../lib/useScrollReveal';
 
 interface ProjectShowcaseProps {
@@ -11,12 +12,24 @@ interface ProjectShowcaseProps {
 }
 
 export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProject, projects = PROJECTS }) => {
+    const { t } = useTranslation();
     const shouldReduceMotion = useReducedMotion();
     const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
     const [activeIdx, setActiveIdx] = useState<number>(0);
     const { ref: sectionRef, inView } = useScrollReveal(0.06);
 
-    const projectList = projects && projects.length > 0 ? projects : PROJECTS;
+    const rawList = projects && projects.length > 0 ? projects : PROJECTS;
+    const projectList = rawList.map((proj) => ({
+        ...proj,
+        title: t(`projects.items.${proj.id}.title`, { defaultValue: proj.title }),
+        category: t(`projects.items.${proj.id}.category`, { defaultValue: proj.category }),
+        badge: t(`projects.items.${proj.id}.badge`, { defaultValue: proj.badge }),
+        period: t(`projects.items.${proj.id}.period`, { defaultValue: proj.period }),
+        client: t(`projects.items.${proj.id}.client`, { defaultValue: proj.client }),
+        role: t(`projects.items.${proj.id}.role`, { defaultValue: proj.role }),
+        summary: t(`projects.items.${proj.id}.summary`, { defaultValue: proj.summary }),
+    }));
+
     const totalProjects = projectList.length;
     const currProject = projectList[activeIdx] || projectList[0];
 
@@ -72,10 +85,10 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
                     <div>
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#881337]/08 border border-[#881337]/20 text-xs font-mono text-[#881337] mb-2 sm:mb-3">
                             <Zap className="w-3.5 h-3.5 text-[#881337] fill-[#881337]" />
-                            <span>FEATURED PROJECTS · SHOWCASE</span>
+                            <span>{t('projects.badge')}</span>
                         </div>
                         <h2 className="text-3xl sm:text-5xl md:text-6xl font-black text-gray-900 tracking-tight uppercase leading-tight">
-                            FEATURED <span className="font-serif italic font-normal text-[#881337]">PROJECTS</span>
+                            {t('projects.heading')} <span className="font-serif italic font-normal text-[#881337]">{t('projects.headingAccent')}</span>
                         </h2>
                     </div>
 
@@ -203,7 +216,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
                                         {currProject.client}
                                     </span>
                                     <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#881337] text-white">
-                                        ACTIVE
+                                        {t('projects.active')}
                                     </span>
                                 </div>
 
@@ -233,7 +246,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
                                     <div className="absolute bottom-2.5 right-2.5">
                                         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#881337]/90 backdrop-blur-md text-white text-[11px] font-bold shadow-md">
                                             <Eye className="w-3.5 h-3.5" />
-                                            <span>Open Project</span>
+                                            <span>{t('projects.openProject')}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -254,7 +267,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
                                     </h3>
 
                                     <div className="text-xs font-mono text-gray-500 mt-1 mb-2.5">
-                                        Role: <span className="font-semibold text-gray-700">{currProject.role}</span>
+                                        {t('projects.role')}: <span className="font-semibold text-gray-700">{currProject.role}</span>
                                     </div>
 
                                     <p className="text-xs text-gray-600 line-clamp-2 leading-relaxed mb-3.5">
@@ -285,7 +298,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
                                         className="w-full py-2.5 px-4 rounded-xl bg-[#881337] hover:bg-[#6d1230] text-white font-bold text-xs shadow-md shadow-[#881337]/25 flex items-center justify-center gap-2 transition-all active:scale-[0.98] cursor-pointer"
                                     >
                                         <Eye className="w-4 h-4" />
-                                        <span>Open Project</span>
+                                        <span>{t('projects.openProject')}</span>
                                     </button>
                                 </div>
                             </motion.div>
@@ -294,7 +307,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
                         {/* Mobile Pagination & Swipe Hint */}
                         <div className="mt-4 pt-3 border-t border-gray-200/80 flex items-center justify-between text-xs">
                             <span className="text-[11px] font-mono text-gray-500">
-                                Swipe to explore projects
+                                {t('projects.mobileHint')}
                             </span>
 
                             <div className="flex items-center gap-1.5">
@@ -335,7 +348,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
                         <div className="flex items-center gap-3">
                             <span className="w-2.5 h-2.5 rounded-full bg-[#881337] animate-ping" />
                             <span className="font-mono text-xs font-bold text-[#881337] uppercase tracking-wider">
-                                ACTIVE: {currProject ? getProjectShortName(currProject) : ''}
+                                {t('projects.active')}: {currProject ? getProjectShortName(currProject) : ''}
                             </span>
                             <span className="text-xs text-gray-300">|</span>
                             <span className="text-xs font-mono text-gray-600">
@@ -384,7 +397,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
                                     className="px-3 py-2 rounded-xl bg-white hover:bg-gray-100 border border-gray-200 text-gray-800 hover:text-[#881337] shadow-sm transition-all hover:scale-105 flex items-center gap-1.5 text-xs font-mono"
                                 >
                                     <FileText className="w-4 h-4 text-blue-600" />
-                                    <span>Docs</span>
+                                    <span>{t('projects.docLabel')}</span>
                                 </a>
                             )}
                             <button
@@ -393,7 +406,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
                                 className="px-4 py-2 rounded-xl bg-[#881337] hover:bg-[#6d1230] text-white shadow-md shadow-[#881337]/20 transition-all hover:scale-105 flex items-center gap-1.5 text-xs font-bold cursor-pointer"
                             >
                                 <Eye className="w-4 h-4" />
-                                <span>Open Project</span>
+                                <span>{t('projects.openProject')}</span>
                             </button>
                         </div>
                     </div>
@@ -529,7 +542,7 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
                                                 ? 'bg-[#881337] text-white'
                                                 : 'bg-gray-200 text-gray-700'
                                         }`}>
-                                            {isSelected ? 'ACTIVE' : 'NEXT'}
+                                            {isSelected ? t('projects.active') : t('projects.next')}
                                         </span>
                                     </div>
 
@@ -574,9 +587,9 @@ export const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ onSelectProjec
                     <div className="relative z-30 pt-4 flex items-center justify-between gap-4 border-t border-gray-200">
                         <div className="flex items-center gap-3 text-xs text-gray-600 font-mono">
                             <span className="px-2 py-0.5 rounded bg-[#881337]/10 font-bold text-[#881337]">
-                                STEP {activeIdx + 1} OF {totalProjects}
+                                {t('projects.step')} {activeIdx + 1} {t('projects.of')} {totalProjects}
                             </span>
-                            <span>Use arrow keys to cycle · Click front card to open project</span>
+                            <span>{t('projects.desktopHint')}</span>
                         </div>
 
                         {/* Interactive Project Dot Indicators */}
