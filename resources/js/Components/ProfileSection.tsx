@@ -13,7 +13,7 @@ const containerVariants: Variants = {
     visible: { transition: { staggerChildren: 0.13, delayChildren: 0.05 } },
 };
 const itemVariants: Variants = {
-    hidden:  { opacity: 0, y: 28 },
+    hidden: { opacity: 0, y: 28 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };
 
@@ -68,8 +68,8 @@ export const ProfileSection: React.FC = () => {
     const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
         if (shouldReduceMotion) return;
         const rect = e.currentTarget.getBoundingClientRect();
-        const x = (e.clientX - (rect.left + rect.width  / 2)) / 30;
-        const y = (e.clientY - (rect.top  + rect.height / 2)) / 30;
+        const x = (e.clientX - (rect.left + rect.width / 2)) / 30;
+        const y = (e.clientY - (rect.top + rect.height / 2)) / 30;
         setMouseOffset({ x, y });
     }, [shouldReduceMotion]);
 

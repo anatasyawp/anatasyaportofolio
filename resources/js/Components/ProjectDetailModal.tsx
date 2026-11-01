@@ -125,13 +125,15 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({
                                     href={project.figmaUrl}
                                     target="_blank"
                                     rel="noreferrer"
-                                    className="px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-mono font-bold flex items-center gap-1.5 shadow-sm transition-transform hover:scale-105"
+                                    className="px-3.5 py-2 rounded-xl bg-white hover:bg-gray-50 border border-gray-200 text-gray-800 text-xs font-mono font-bold flex items-center gap-1.5 shadow-sm transition-transform hover:scale-105"
                                 >
-                                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                                        <path d="M12 12a3 3 0 0 0 3-3 3 3 0 0 0-3-3H9v6h3zm0 0a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H9zm0-12a3 3 0 0 0-3 3v3h6a3 3 0 0 0-3-3 3 3 0 0 0 0-3zm-3 15a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3v-3H9zm0-9a3 3 0 0 0-3 3 3 3 0 0 0 3 3h3V6H9z"/>
-                                    </svg>
+                                    <img
+                                        src="./images/icons/figma.svg"
+                                        alt="Figma"
+                                        className="w-3.5 h-3.5 object-contain shrink-0"
+                                    />
                                     <span>Figma</span>
-                                    <ExternalLink className="w-3 h-3 text-purple-200" />
+                                    <ExternalLink className="w-3 h-3 text-gray-400" />
                                 </a>
                             )}
 

@@ -254,53 +254,55 @@ export const EXPERIENCES: Experience[] = [
         organization: 'IPB University',
         location: 'Bogor, Indonesia',
         logoUrl: 'images/logo_ipb.png',
-        description: 'Research university offering undergraduate and applied degree programs.',
+        description: 'Department of Software Engineering Technology · Multimedia & UI/UX Lab.',
         achievements: [
-            'Mentored 38 students across 14 multimedia practicum sessions by delivering hands-on technical guidance, design critique, and tooling feedback using Pacdora, Canva, and Figma.',
-            'Assisted the lead lecturer in supervising and coordinating two major milestone deliverables (product designs and commercial advertising content), keeping student milestone tracking 100% on schedule.'
+            'Guided 38 students across 14 hands-on practicum lab sessions in UI/UX prototyping and multimedia design using Figma and Pacdora.',
+            'Assisted faculty lecturers in tracking student project milestones, reviewing design deliverables, and providing actionable feedback.'
         ],
-        technologies: ['Figma', 'Pacdora', 'Canva', 'Multimedia Design', 'Mentoring & Feedback', 'Project Supervision']
+        technologies: ['Figma', 'Pacdora', 'Canva', 'UI/UX Design', 'Mentoring', 'Design Critique']
     },
     {
         period: 'Jan 2026 – May 2026',
-        role: 'Full Stack Developer Intern',
+        role: 'Full-Stack Developer Intern',
         organization: 'Pemerintah Kota Depok',
         location: 'Depok, Indonesia',
         logoUrl: 'images/logo_depok.png',
-        description: 'Local government agency providing public services in Depok.',
+        description: 'Depok City Government · BKPSDM & Diskominfo Municipal Systems.',
         achievements: [
-            'Applied the Prototyping SDLC methodology to translate civic organizational needs into functional specifications and UML diagrams, designing the complete UI/UX and engineering 13 core features in 4 months using Laravel 11, PHP, JavaScript, and MySQL.',
-            'Formulated and executed 46 comprehensive Black Box Testing test cases (positive & negative scenarios) achieving a 100% pass rate, coupled with end-user usability testing that secured an outstanding System Usability Scale (SUS) score of 95/100.'
+            'Built 13 core features for the civil servant transfer module (PWK) using Laravel 11, PHP, MySQL, and JavaScript within a 4-month timeline.',
+            'Designed relational database schemas, modeled application workflows with UML, and created responsive frontend interfaces for civic staff.',
+            'Executed 46 Black Box test cases with a 100% pass rate and achieved a 95/100 System Usability Scale (SUS) score from department stakeholders.'
         ],
-        technologies: ['Laravel 11', 'PHP', 'JavaScript', 'MySQL', 'Prototyping SDLC', 'UML Modeling', 'Black Box Testing (100%)', 'SUS (95/100)']
+        technologies: ['Laravel 11', 'PHP', 'JavaScript', 'MySQL', 'Bootstrap', 'Black Box Testing', 'SUS Usability']
     },
     {
         period: 'Aug 2025 – Dec 2025',
-        role: 'Full Stack Developer Intern',
+        role: 'Full-Stack Developer Intern',
         organization: 'Pemerintah Kota Depok',
         location: 'Depok, Indonesia',
         logoUrl: 'images/logo_depok.png',
-        description: 'Local government agency providing public services in Depok.',
+        description: 'Depok City Government · Internal Municipal Web Services.',
         achievements: [
-            'Adopted Agile methodology to translate civil servant requirements into functional workflows, designing user interfaces and building 8 core features within 3 months using Laravel, PHP, JavaScript, jQuery, AJAX, and MySQL for the internal AJAK website.',
-            'Conducted 22 Black Box Testing test cases validating feature reliability, business logic boundaries, and user compliance, achieving a 100% pass rate with zero unresolved defects before staging deployment.'
+            'Developed 8 interactive features for internal municipal systems using Laravel, PHP, JavaScript, jQuery, and MySQL.',
+            'Created dynamic frontend components using AJAX to streamline daily internal reporting and document verification.',
+            'Conducted 22 Black Box test scenarios to verify validation rules, boundary conditions, and system reliability before staging deployment.'
         ],
-        technologies: ['Laravel', 'PHP', 'JavaScript', 'jQuery', 'AJAX', 'MySQL', 'Agile Methodology', 'Black Box Testing (100%)']
+        technologies: ['Laravel', 'PHP', 'JavaScript', 'jQuery', 'AJAX', 'MySQL', 'Software QA']
     }
 ];
 
 export const EDUCATION_DATA: Education = {
     period: '2022 – 2026',
-    institution: 'IPB University (Institut Pertanian Bogor)',
+    institution: 'IPB University',
     degree: 'Applied Bachelor’s Degree (D4)',
     major: 'Software Engineering Technology',
     gpa: '3.54 / 4.00',
     logoUrl: 'images/logo_ipb.png',
     highlights: [
-        'Focus Areas: Full-Stack Web Development with a strong interest in Frontend Development, UI/UX Design, Software Testing, and Database Management.',
-        'Applied Software Development Life Cycle (SDLC) methodologies and software testing practices through academic and team-based projects.',
-        'Final Thesis: Development of the Work Area Transfer Module for the Depok City Government’s Internal Website.',
-        'Certification: BNSP Software Engineering Certification.'
+        'Core Focus: Full-Stack Web Development, Frontend Engineering, UI/UX Design, Software Testing (QA), and Relational Databases.',
+        'Applied Software Development Life Cycle (SDLC) methodologies across team-based web development projects.',
+        'Final Capstone Project: Development and Usability Testing of the Civil Servant Work Area Transfer Module for the Depok City Government.',
+        'Certified Software Engineer by BNSP (Badan Nasional Sertifikasi Profesi).'
     ]
 };
 
@@ -311,116 +313,136 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
         skills: [
             { 
                 name: 'HTML5', 
-                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg',
+                icon: 'images/icons/html5.svg',
                 color: '#E34F26'
             },
             { 
                 name: 'CSS3', 
-                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg',
+                icon: 'images/icons/css3.svg',
                 color: '#1572B6'
             },
             { 
                 name: 'JavaScript', 
-                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
+                icon: 'images/icons/javascript.svg',
                 color: '#F7DF1E'
             },
             { 
+                name: 'TypeScript', 
+                icon: 'images/icons/typescript.svg',
+                color: '#3178C6'
+            },
+            { 
                 name: 'React', 
-                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg',
+                icon: 'images/icons/react.svg',
                 color: '#61DAFB'
             },
             { 
                 name: 'Tailwind CSS', 
-                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg',
+                icon: 'images/icons/tailwindcss.svg',
                 color: '#06B6D4'
             },
             { 
                 name: 'Bootstrap', 
-                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg',
+                icon: 'images/icons/bootstrap.svg',
                 color: '#7952B3'
             },
         ]
     },
     {
         name: 'Backend & Database',
-        description: 'Developing application logic, secure APIs, and relational database schemas.',
+        description: 'Developing application logic, secure APIs, and relational schemas.',
         skills: [
             { 
                 name: 'PHP', 
-                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg',
+                icon: 'images/icons/php.svg',
                 color: '#777BB4'
             },
             { 
                 name: 'Laravel', 
-                icon: 'https://raw.githubusercontent.com/devicons/devicon/master/icons/laravel/laravel-original.svg',
+                icon: 'images/icons/laravel.svg',
                 color: '#FF2D20'
             },
             { 
                 name: 'MySQL', 
-                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg',
+                icon: 'images/icons/mysql.svg',
                 color: '#4479A1'
             },
             { 
                 name: 'RESTful API', 
-                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg',
+                icon: 'images/icons/restapi.svg',
                 color: '#009688'
             }
         ]
     },
     {
-        name: 'UI/UX Design',
-        description: 'Designing wireframes, high-fidelity prototypes, and design systems.',
+        name: 'Creative & Design',
+        description: 'UI/UX design, visual prototyping, video assets, and creative photo editing.',
         skills: [
             { 
                 name: 'Figma', 
-                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg',
+                icon: 'images/icons/figma.svg',
                 color: '#F24E1E'
             },
             { 
-                name: 'Wireframing', 
-                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xd/xd-plain.svg',
-                color: '#FF61F6'
+                name: 'Canva', 
+                icon: 'images/icons/canva.svg',
+                color: '#00C4CC'
             },
             { 
-                name: 'Usability (SUS)', 
-                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/trello/trello-plain.svg',
-                color: '#0052CC'
+                name: 'CapCut', 
+                icon: 'images/icons/capcut.svg',
+                color: '#000000'
+            },
+            { 
+                name: 'Lightroom', 
+                icon: 'images/icons/lightroom.svg',
+                color: '#31A8FF'
             },
         ]
     },
     {
-        name: 'Software Engineering & QA',
-        description: 'Testing methodologies, version control, and API testing tools.',
+        name: 'Testing, Tools & AI',
+        description: 'Quality assurance, usability testing, version control, and AI-assisted engineering.',
         skills: [
             { 
-                name: 'Git & GitHub', 
-                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg',
-                color: '#F05032'
+                name: 'Manual Testing', 
+                icon: 'images/icons/manual-testing.svg',
+                color: '#059669'
+            },
+            { 
+                name: 'Usability Testing', 
+                icon: 'images/icons/usability-testing.svg',
+                color: '#881337'
+            },
+            { 
+                name: 'Maze', 
+                icon: 'images/icons/maze.svg',
+                color: '#F43F5E'
             },
             { 
                 name: 'Postman', 
-                icon: 'https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg',
+                icon: 'images/icons/postman.svg',
                 color: '#FF6C37'
             },
             { 
-                name: 'Apache JMeter', 
-                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg',
-                color: '#D22128'
+                name: 'Git Control', 
+                icon: 'images/icons/git.svg',
+                color: '#F05032'
             },
             { 
                 name: 'Jira', 
-                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg',
+                icon: 'images/icons/jira.svg',
                 color: '#0052CC'
             },
             { 
-                name: 'Black Box Testing', 
-                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg',
-                color: '#43B02A'
+                name: 'Claude AI', 
+                icon: 'images/icons/claude.svg',
+                color: '#D97706'
             },
             { 
-                name: 'UAT Testing', 
-                icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/confluence/confluence-original.svg',
-                color: '#172B4D'
+                name: 'Codex AI', 
+                icon: 'images/icons/codex.svg',
+                color: '#10A37F'
             },
         ]
     }

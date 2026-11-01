@@ -6,6 +6,14 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title inertia>{{ config('app.name', "Tasya's Portfolio") }}</title>
 
+        <!-- Favicon / Website Logo -->
+        <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+        <meta name="theme-color" content="#881337">
+
         <!-- Google Fonts: Inter & Outfit -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

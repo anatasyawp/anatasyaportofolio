@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9f1239" />
+      <stop offset="45%" stop-color="#881337" />
+      <stop offset="100%" stop-color="#4c0519" />
+    </linearGradient>
+    <linearGradient id="innerGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.32" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="125%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#881337" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <!-- Squircle Base with Shadow -->
+  <rect x="32" y="32" width="448" height="448" rx="120" fill="url(#bgGrad)" filter="url(#shadow)" />
+  
+  <!-- Subtle Top Rim Highlight -->
+  <rect x="34" y="34" width="444" height="444" rx="118" fill="none" stroke="url(#innerGlow)" stroke-width="4" />
+
+  <!-- Monogram Glyph "A" -->
+  <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M156 364 L256 148 L356 364" stroke-width="44" />
+    <path d="M192 288 L320 288" stroke-width="40" />
+  </g>
+  <!-- Refined Accent Dot in Apex -->
+  <circle cx="256" cy="226" r="22" fill="#FECDD3" />
+</svg>
+

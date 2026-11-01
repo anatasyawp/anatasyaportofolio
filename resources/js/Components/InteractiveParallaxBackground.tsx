@@ -1,306 +1,327 @@
-import React, { useEffect, useRef, useCallback } from 'react';
-import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'motion/react';
+import React, { useEffect, useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring, useMotionValue, useReducedMotion } from 'motion/react';
 
-/* ── Particle canvas ─────────────────────────────────────────────────────── */
-const ParticleCanvas: React.FC = () => {
+/* ─────────────────────────────────────────────────────────────────────────────
+ * 1. HIGH-DPI SOFT AMBIENT DUST MOTES (Clean, Non-Distracting UX)
+ * ───────────────────────────────────────────────────────────────────────────── */
+interface AmbientMote {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    radius: number;
+    alpha: number;
+    baseAlpha: number;
+    alphaSpeed: number;
+}
+
+const SoftAmbientDustCanvas: React.FC = () => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const animRef   = useRef<number>(0);
-    const mouseRef  = useRef({ x: -9999, y: -9999 });
+    const animFrameRef = useRef<number>(0);
+    const mousePos = useRef({ x: -9999, y: -9999 });
+    const prefersReduced = useReducedMotion();
 
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas) return;
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d', { alpha: true });
         if (!ctx) return;
 
-        const resize = () => {
-            canvas.width  = window.innerWidth;
-            canvas.height = document.documentElement.scrollHeight;
+        let width = (canvas.width = window.innerWidth);
+        let height = (canvas.height = window.innerHeight);
+
+        const handleResize = () => {
+            if (!canvas) return;
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            ctx.scale(dpr, dpr);
         };
-        resize();
-        window.addEventListener('resize', resize);
+        handleResize();
+        window.addEventListener('resize', handleResize);
 
-        // Particle pool
-        const NUM = Math.min(Math.floor(window.innerWidth / 8), 140);
-        type P = { x: number; y: number; vx: number; vy: number; r: number; a: number; da: number; hue: number };
-        const particles: P[] = Array.from({ length: NUM }, () => ({
-            x:  Math.random() * canvas.width,
-            y:  Math.random() * canvas.height,
-            vx: (Math.random() - 0.5) * 0.3,
-            vy: (Math.random() - 0.5) * 0.3,
-            r:  1 + Math.random() * 2.2,
-            a:  Math.random(),
-            da: (Math.random() - 0.5) * 0.004,
-            hue: 340 + Math.random() * 30,   // rose-burgundy range
-        }));
+        // Low particle density for a clean, peaceful, non-distracting visual experience
+        const count = Math.min(Math.floor(width / 42), 36);
+        const motes: AmbientMote[] = Array.from({ length: count }, () => {
+            const baseAlpha = 0.12 + Math.random() * 0.22;
+            return {
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.18, // Ultra-soft gentle drift
+                vy: (Math.random() - 0.5) * 0.18,
+                radius: 0.9 + Math.random() * 1.2,
+                alpha: baseAlpha,
+                baseAlpha,
+                alphaSpeed: 0.002 + Math.random() * 0.004,
+            };
+        });
 
-        const onMouseMove = (e: MouseEvent) => {
-            mouseRef.current = { x: e.clientX, y: e.clientY + window.scrollY };
+        const handleMouseMove = (e: MouseEvent) => {
+            mousePos.current = { x: e.clientX, y: e.clientY };
         };
-        window.addEventListener('mousemove', onMouseMove);
+        const handleMouseLeave = () => {
+            mousePos.current = { x: -9999, y: -9999 };
+        };
+        window.addEventListener('mousemove', handleMouseMove, { passive: true });
+        window.addEventListener('mouseleave', handleMouseLeave);
 
-        const draw = () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            const mx = mouseRef.current.x;
-            const my = mouseRef.current.y;
+        let lastTime = performance.now();
 
-            particles.forEach((p) => {
-                // Mouse repulsion
-                const dx = p.x - mx;
-                const dy = p.y - my;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < 90) {
-                    const force = (90 - dist) / 90;
-                    p.vx += (dx / dist) * force * 0.12;
-                    p.vy += (dy / dist) * force * 0.12;
-                }
+        const render = (currentTime: number) => {
+            const dt = Math.min((currentTime - lastTime) / 16.66, 2.0);
+            lastTime = currentTime;
 
-                // Velocity damping
-                p.vx *= 0.98;
-                p.vy *= 0.98;
+            ctx.clearRect(0, 0, width, height);
 
-                p.x += p.vx;
-                p.y += p.vy;
-                p.a += p.da;
-                if (p.a > 0.75 || p.a < 0.08) p.da *= -1;
+            const mx = mousePos.current.x;
+            const my = mousePos.current.y;
 
-                // Wrap
-                if (p.x < 0) p.x = canvas.width;
-                if (p.x > canvas.width)  p.x = 0;
-                if (p.y < 0) p.y = canvas.height;
-                if (p.y > canvas.height) p.y = 0;
+            for (let i = 0; i < motes.length; i++) {
+                const m = motes[i];
 
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                ctx.fillStyle = `hsla(${p.hue}, 60%, 40%, ${p.a})`;
-                ctx.fill();
-            });
-
-            // Draw connection lines
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const a = particles[i], b = particles[j];
-                    const dx = a.x - b.x, dy = a.y - b.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 120) {
-                        ctx.beginPath();
-                        ctx.moveTo(a.x, a.y);
-                        ctx.lineTo(b.x, b.y);
-                        ctx.strokeStyle = `rgba(136,19,55,${0.06 * (1 - dist / 120)})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.stroke();
+                if (!prefersReduced) {
+                    // Soft cushioned parting away from cursor
+                    const dx = m.x - mx;
+                    const dy = m.y - my;
+                    const distSq = dx * dx + dy * dy;
+                    if (distSq < 8000 && distSq > 0) {
+                        const dist = Math.sqrt(distSq);
+                        const force = ((90 - dist) / 90) * 0.06 * dt;
+                        m.vx += (dx / dist) * force;
+                        m.vy += (dy / dist) * force;
                     }
+
+                    // Gentle damping
+                    m.vx *= 0.99;
+                    m.vy *= 0.99;
+
+                    m.x += m.vx * dt;
+                    m.y += m.vy * dt;
+
+                    // Soft alpha breathing
+                    m.alpha += m.alphaSpeed * dt;
+                    if (m.alpha > m.baseAlpha + 0.16 || m.alpha < m.baseAlpha - 0.08) {
+                        m.alphaSpeed = -m.alphaSpeed;
+                    }
+
+                    // Seamless edge wrapping
+                    if (m.x < -10) m.x = width + 10;
+                    if (m.x > width + 10) m.x = -10;
+                    if (m.y < -10) m.y = height + 10;
+                    if (m.y > height + 10) m.y = -10;
                 }
+
+                // Render soft, translucent ambient speck
+                ctx.beginPath();
+                ctx.arc(m.x, m.y, m.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(136, 19, 55, ${Math.max(0.06, Math.min(m.alpha, 0.38))})`;
+                ctx.fill();
             }
 
-            animRef.current = requestAnimationFrame(draw);
+            animFrameRef.current = requestAnimationFrame(render);
         };
-        draw();
+
+        animFrameRef.current = requestAnimationFrame(render);
 
         return () => {
-            cancelAnimationFrame(animRef.current);
-            window.removeEventListener('resize', resize);
-            window.removeEventListener('mousemove', onMouseMove);
+            cancelAnimationFrame(animFrameRef.current);
+            window.removeEventListener('resize', handleResize);
+            window.removeEventListener('mousemove', handleMouseMove);
+            window.removeEventListener('mouseleave', handleMouseLeave);
         };
-    }, []);
+    }, [prefersReduced]);
 
     return (
         <canvas
             ref={canvasRef}
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            style={{ opacity: 0.55 }}
+            className="fixed inset-0 w-full h-full pointer-events-none z-[1]"
+            style={{ opacity: 0.65 }}
         />
     );
 };
 
-/* ── Cursor spotlight ────────────────────────────────────────────────────── */
-const CursorSpotlight: React.FC = () => {
-    const x = useMotionValue(-400);
-    const y = useMotionValue(-400);
-    const springX = useSpring(x, { damping: 22, stiffness: 180 });
-    const springY = useSpring(y, { damping: 22, stiffness: 180 });
+/* ─────────────────────────────────────────────────────────────────────────────
+ * 2. ULTRA-SOFT SPRING CURSOR SHEEN (Subtle, Atmospheric Feedback)
+ * ───────────────────────────────────────────────────────────────────────────── */
+interface SoftCursorSheenProps {
+    mouseX: any;
+    mouseY: any;
+}
 
-    useEffect(() => {
-        const onMove = (e: MouseEvent) => { x.set(e.clientX); y.set(e.clientY); };
-        window.addEventListener('mousemove', onMove);
-        return () => window.removeEventListener('mousemove', onMove);
-    }, [x, y]);
-
+const SoftCursorSheen: React.FC<SoftCursorSheenProps> = ({ mouseX, mouseY }) => {
     return (
         <motion.div
-            className="fixed pointer-events-none z-[1] mix-blend-multiply"
+            className="fixed pointer-events-none z-[2] mix-blend-multiply"
             style={{
-                left: springX,
-                top:  springY,
+                left: mouseX,
+                top: mouseY,
                 translateX: '-50%',
                 translateY: '-50%',
-                width:  380,
-                height: 380,
+                width: 480,
+                height: 480,
                 borderRadius: '50%',
-                background: 'radial-gradient(circle, rgba(136,19,55,0.10) 0%, rgba(190,18,60,0.05) 45%, transparent 72%)',
+                background:
+                    'radial-gradient(circle, rgba(136, 19, 55, 0.045) 0%, rgba(244, 63, 94, 0.02) 45%, transparent 70%)',
+                filter: 'blur(20px)',
             }}
         />
     );
 };
 
-/* ── Main background ─────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────────────────────
+ * 3. SENIOR FRONT-END BACKGROUND: CLEAN, SOFT, UX-FIRST ARCHITECTURE
+ * ───────────────────────────────────────────────────────────────────────────── */
 export const InteractiveParallaxBackground: React.FC = () => {
-    const { scrollY } = useScroll();
+    const prefersReduced = useReducedMotion();
+    const { scrollY, scrollYProgress } = useScroll();
 
-    // Parallax layers
-    const orb1Y   = useTransform(scrollY, [0, 3000], [0,  500]);
-    const orb2Y   = useTransform(scrollY, [0, 3500], [0, -420]);
-    const orb3Y   = useTransform(scrollY, [0, 4000], [0,  620]);
-    const orb4Y   = useTransform(scrollY, [0, 5000], [0,  350]);
-    const gridY   = useTransform(scrollY, [0, 4000], [0,  220]);
-    const noiseY  = useTransform(scrollY, [0, 3000], [0,   80]);
+    // Spring-smoothed scroll progress with high damping for a relaxed, buttery scroll experience
+    const smoothProgress = useSpring(scrollYProgress, {
+        damping: 38,
+        stiffness: 55,
+        mass: 0.9,
+    });
 
-    // Mouse reactive orbs
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
-    const sMouseX = useSpring(mouseX, { damping: 35, stiffness: 100 });
-    const sMouseY = useSpring(mouseY, { damping: 35, stiffness: 100 });
+    // Cursor position with spring physics
+    const rawMouseX = useMotionValue(-500);
+    const rawMouseY = useMotionValue(-500);
+    const springMouseX = useSpring(rawMouseX, { damping: 28, stiffness: 140 });
+    const springMouseY = useSpring(rawMouseY, { damping: 28, stiffness: 140 });
+
+    // Normalized mouse [-1, 1] for gentle, subtle parallax drift
+    const normMouseX = useMotionValue(0);
+    const normMouseY = useMotionValue(0);
+    const springNormX = useSpring(normMouseX, { damping: 35, stiffness: 80 });
+    const springNormY = useSpring(normMouseY, { damping: 35, stiffness: 80 });
 
     useEffect(() => {
-        const onMove = (e: MouseEvent) => {
-            const nx = (e.clientX / window.innerWidth)  * 2 - 1;
-            const ny = (e.clientY / window.innerHeight) * 2 - 1;
-            mouseX.set(nx);
-            mouseY.set(ny);
-        };
-        window.addEventListener('mousemove', onMove);
-        return () => window.removeEventListener('mousemove', onMove);
-    }, [mouseX, mouseY]);
+        const handleMouseMove = (e: MouseEvent) => {
+            rawMouseX.set(e.clientX);
+            rawMouseY.set(e.clientY);
 
-    const orb1x = useTransform(sMouseX, [-1, 1], [-50,  50]);
-    const orb1yM = useTransform(sMouseY, [-1, 1], [-30,  30]);
-    const orb2x = useTransform(sMouseX, [-1, 1], [ 55, -55]);
-    const orb2yM = useTransform(sMouseY, [-1, 1], [ 40, -40]);
-    const orb3x = useTransform(sMouseX, [-1, 1], [-25,  25]);
-    const cursorX = useTransform(sMouseX, [-1, 1], [-200, 200]);
-    const cursorY = useTransform(sMouseY, [-1, 1], [-200, 200]);
+            const nx = (e.clientX / window.innerWidth) * 2 - 1;
+            const ny = (e.clientY / window.innerHeight) * 2 - 1;
+            normMouseX.set(nx);
+            normMouseY.set(ny);
+        };
+
+        window.addEventListener('mousemove', handleMouseMove, { passive: true });
+        return () => window.removeEventListener('mousemove', handleMouseMove);
+    }, [rawMouseX, rawMouseY, normMouseX, normMouseY]);
+
+    /* ── Soft, Airy, Pastel-Tier Ambient Tones (Never harsh, Never saturated) ── */
+    // Interpolated continuously along scroll progress [0 -> 1]
+    const softAuraPrimary = useTransform(
+        smoothProgress,
+        [0.0, 0.25, 0.50, 0.75, 1.0],
+        [
+            'rgba(136, 19, 55, 0.065)',  // Hero: Soft Burgundy whisper
+            'rgba(112, 26, 117, 0.055)', // Experience: Soft Plum tint
+            'rgba(190, 18, 60, 0.062)',  // Projects: Gentle Warm Rose
+            'rgba(5, 150, 105, 0.048)',  // Credentials: Soft Emerald pearl
+            'rgba(136, 19, 55, 0.060)',  // Footer: Subtle Velvet Wine
+        ]
+    );
+
+    const softAuraSecondary = useTransform(
+        smoothProgress,
+        [0.0, 0.25, 0.50, 0.75, 1.0],
+        [
+            'rgba(251, 113, 133, 0.065)', // Hero: Pastel Rose
+            'rgba(129, 140, 248, 0.045)', // Experience: Soft Periwinkle
+            'rgba(245, 158, 11, 0.048)',  // Projects: Warm Sunlit Amber
+            'rgba(16, 185, 129, 0.045)',  // Credentials: Soft Mint
+            'rgba(244, 63, 94, 0.055)',   // Footer: Soft Rose
+        ]
+    );
+
+    // Parallax subtle shifts
+    const motifY = useTransform(scrollY, [0, 4000], [0, 120]);
+    const orb1Y = useTransform(scrollY, [0, 3500], [0, 280]);
+    const orb2Y = useTransform(scrollY, [0, 3500], [0, -220]);
+    const orb3Y = useTransform(scrollY, [0, 4500], [0, 340]);
+
+    // Gentle mouse-reactive orb nudges
+    const orb1x = useTransform(springNormX, [-1, 1], [-25, 25]);
+    const orb1yM = useTransform(springNormY, [-1, 1], [-18, 18]);
+    const orb2x = useTransform(springNormX, [-1, 1], [30, -30]);
 
     return (
         <>
-            {/* Fixed full-viewport base layer */}
-            <div className="fixed inset-0 pointer-events-none z-0 bg-white overflow-hidden">
+            {/* ── Fixed Viewport Base Atmosphere ── */}
+            <div className="fixed inset-0 pointer-events-none z-0 bg-[#FFFFFF] overflow-hidden select-none">
 
-                {/* === Base gradient wash === */}
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_130%_100%_at_60%_-10%,rgba(136,19,55,0.055)_0%,transparent_60%)] pointer-events-none" />
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_70%_at_10%_80%,rgba(190,18,60,0.04)_0%,transparent_55%)] pointer-events-none" />
-
-                {/* === Animated Gradient Grid === */}
-                <motion.div
+                {/* 1. Base Delicate Wash: Softens the stark white into warm luxury alabaster */}
+                <div
+                    className="absolute inset-0 pointer-events-none"
                     style={{
-                        y: gridY,
-                        backgroundImage:
-                            'linear-gradient(to right, rgba(0,0,0,0.042) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.042) 1px, transparent 1px)',
-                        backgroundSize: '52px 52px',
-                        maskImage: 'radial-gradient(ellipse 85% 65% at 50% 38%, #000 55%, transparent 100%)',
-                        WebkitMaskImage: 'radial-gradient(ellipse 85% 65% at 50% 38%, #000 55%, transparent 100%)',
-                        position: 'absolute',
-                        inset: 0,
-                        pointerEvents: 'none',
+                        background:
+                            'radial-gradient(ellipse 130% 90% at 50% -10%, rgba(136, 19, 55, 0.035) 0%, transparent 70%)',
                     }}
                 />
 
-                {/* === Orb 1: Primary Burgundy — top-right, mouse-reactive === */}
+                {/* 2. Clean, Minimal Micro-Dot Motif with Interactive Spotlight Reveal */}
+                <motion.div
+                    style={{
+                        y: motifY,
+                        backgroundImage: 'radial-gradient(rgba(136, 19, 55, 0.09) 1px, transparent 1px)',
+                        backgroundSize: '32px 32px',
+                        maskImage: 'radial-gradient(ellipse 90% 75% at 50% 35%, #000 35%, transparent 90%)',
+                        WebkitMaskImage: 'radial-gradient(ellipse 90% 75% at 50% 35%, #000 35%, transparent 90%)',
+                        opacity: 0.45,
+                    }}
+                    className="absolute inset-0 pointer-events-none"
+                />
+
+                {/* 3. Soft Diffused Aurora Blooms (Extra-wide blurs, ultra-smooth diffusion) */}
+
+                {/* Top-Right Ambient Warmth */}
                 <motion.div
                     style={{
                         y: orb1Y,
                         x: orb1x,
-                        position: 'absolute',
-                        top: '-18%',
-                        right: '-8%',
-                        width: '780px',
-                        height: '780px',
-                        borderRadius: '50%',
-                        background: 'radial-gradient(circle, rgba(136,19,55,0.18) 0%, rgba(190,18,60,0.11) 45%, transparent 72%)',
-                        filter: 'blur(100px)',
-                        pointerEvents: 'none',
+                        background: softAuraPrimary,
+                        filter: 'blur(160px)',
                     }}
+                    className={`absolute -top-[12%] -right-[6%] w-[760px] h-[760px] rounded-full pointer-events-none ${
+                        !prefersReduced ? 'animate-aurora-spin' : ''
+                    }`}
                 />
 
-                {/* === Orb 2: Rose / Warm — center-left, inverse === */}
+                {/* Mid-Left Complementary Soft Bloom */}
                 <motion.div
                     style={{
                         y: orb2Y,
                         x: orb2x,
-                        background: 'radial-gradient(circle, rgba(251,113,133,0.18) 0%, rgba(136,19,55,0.09) 50%, transparent 75%)',
-                        filter: 'blur(120px)',
+                        background: softAuraSecondary,
+                        filter: 'blur(170px)',
                     }}
-                    className="absolute top-[30%] -left-[14%] w-[700px] h-[700px] rounded-full pointer-events-none"
+                    className={`absolute top-[32%] -left-[10%] w-[700px] h-[700px] rounded-full pointer-events-none ${
+                        !prefersReduced ? 'animate-aurora-drift' : ''
+                    }`}
                 />
 
-                {/* === Orb 3: Deep burgundy — bottom === */}
+                {/* Bottom-Right Anchor Glow */}
                 <motion.div
                     style={{
                         y: orb3Y,
-                        x: orb3x,
-                        background: 'radial-gradient(circle, rgba(136,19,55,0.13) 0%, rgba(220,38,38,0.07) 50%, transparent 75%)',
-                        filter: 'blur(130px)',
+                        background: softAuraPrimary,
+                        filter: 'blur(180px)',
                     }}
-                    className="absolute top-[68%] right-[3%] w-[640px] h-[640px] rounded-full pointer-events-none"
+                    className="absolute top-[68%] right-[2%] w-[640px] h-[640px] rounded-full pointer-events-none"
                 />
 
-                {/* === Orb 4: Subtle mid-page anchor === */}
-                <motion.div
-                    style={{
-                        y: orb4Y,
-                        background: 'radial-gradient(circle, rgba(253,164,175,0.12) 0%, transparent 65%)',
-                        filter: 'blur(110px)',
-                    }}
-                    className="absolute top-[52%] left-[38%] w-[500px] h-[500px] rounded-full pointer-events-none"
-                />
-
-                {/* === Cursor reactive spotlight orb === */}
-                <motion.div
-                    style={{
-                        x: cursorX,
-                        y: cursorY,
-                        background: 'radial-gradient(circle, rgba(136,19,55,0.07) 0%, rgba(190,18,60,0.04) 45%, transparent 70%)',
-                        filter: 'blur(90px)',
-                    }}
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] rounded-full pointer-events-none"
-                />
-
-                {/* === Particle field === */}
-                <ParticleCanvas />
-
-                {/* === Animated shimmer dots === */}
-                <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                    {[...Array(8)].map((_, i) => (
-                        <motion.div
-                            key={i}
-                            className="absolute rounded-full"
-                            style={{
-                                width:  4 + (i % 3) * 3,
-                                height: 4 + (i % 3) * 3,
-                                left: `${10 + i * 11}%`,
-                                top:  `${8  + i * 10}%`,
-                                background: `rgba(136,19,55,${0.15 + (i % 4) * 0.07})`,
-                            }}
-                            animate={{
-                                y:       [0, -18, 0],
-                                opacity: [0.3, 0.9, 0.3],
-                                scale:   [1, 1.3, 1],
-                            }}
-                            transition={{
-                                duration: 3.5 + i * 0.7,
-                                repeat: Infinity,
-                                delay: i * 0.45,
-                                ease: 'easeInOut',
-                            }}
-                        />
-                    ))}
-                </div>
-
-                {/* === Vignette fade-to-white at bottom === */}
+                {/* 4. Ultra-clean Vignette at Page Foot */}
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/50 pointer-events-none" />
             </div>
 
-            {/* Cursor spotlight — fixed layer above content, below interactive z */}
-            <CursorSpotlight />
+            {/* Soft Ambient Dust Specks (Minimal, Calming, Non-Intrusive) */}
+            <SoftAmbientDustCanvas />
+
+            {/* Soft Spring-Interlaced Cursor Sheen */}
+            <SoftCursorSheen mouseX={springMouseX} mouseY={springMouseY} />
         </>
     );
 };

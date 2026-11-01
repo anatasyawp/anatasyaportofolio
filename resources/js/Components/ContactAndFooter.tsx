@@ -79,8 +79,11 @@ export const ContactAndFooter: React.FC = () => {
             ref={ref as React.Ref<HTMLElement>}
             className="pt-24 pb-12 relative overflow-hidden"
         >
+            {/* Seamless organic gradient divider */}
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#881337]/25 to-transparent pointer-events-none" />
+
             {/* Glassmorphism section backing */}
-            <div className="absolute inset-0 bg-white/75 backdrop-blur-[2px] border-t border-gray-200/80" />
+            <div className="absolute inset-0 bg-gradient-to-b from-white/45 via-white/75 to-white/85 backdrop-blur-[6px]" />
 
             {/* Decorative orb */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[350px] rounded-full bg-gradient-to-b from-[#881337]/06 to-transparent blur-[120px] pointer-events-none" />
@@ -108,8 +111,8 @@ export const ContactAndFooter: React.FC = () => {
                     </motion.h2>
 
                     <motion.p variants={fadeUp(0.1)} className="text-sm sm:text-base text-gray-600 leading-relaxed max-w-2xl mx-auto">
-                        Terbuka untuk posisi <strong>Full-Stack Developer</strong>, <strong>Web Engineer</strong>,{' '}
-                        <strong>Software QA</strong>, atau kolaborasi proyek teknologi. Hubungi saya melalui saluran di bawah ini:
+                        Available for <strong>Full-Stack Developer</strong>, <strong>Frontend & Web Engineering</strong>,{' '}
+                        and software quality assurance roles. Feel free to reach out through any channel below:
                     </motion.p>
                 </motion.div>
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowUpRight, Code2 } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
 export const Navbar: React.FC = () => {
@@ -18,7 +18,7 @@ export const Navbar: React.FC = () => {
         { label: 'Profile', href: '#profile' },
         { label: 'Experience', href: '#experience' },
         { label: 'Projects', href: '#projects' },
-        { label: 'Certificates & Awards', href: '#certificates' },
+        { label: 'Licenses & Achievements', href: '#certificates' },
         { label: 'Skills', href: '#skills' },
         { label: 'Contact', href: '#contact' },
     ];
@@ -46,12 +46,30 @@ export const Navbar: React.FC = () => {
                     href="#top"
                     onClick={(e) => handleClick(e, '#top')}
                     className="group flex items-center space-x-2.5 font-medium tracking-tight text-gray-900"
+                    aria-label="hianatasya home"
                 >
-                    <div className="w-9 h-9 rounded-lg bg-[#881337] flex items-center justify-center text-white shadow-md shadow-[#881337]/20 group-hover:scale-105 transition-transform">
-                        <Code2 className="w-5 h-5" />
+                    {/* Website Logo Mark */}
+                    <div className="relative w-9 h-9 rounded-xl overflow-hidden shadow-md shadow-[#881337]/20 transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-[#881337]/35 ring-1 ring-white/30 shrink-0">
+                        <img
+                            src="./images/logo.svg"
+                            onError={(e) => {
+                                const t = e.currentTarget;
+                                if (t.dataset.retried) return;
+                                t.dataset.retried = 'true';
+                                if (t.src.indexOf('anatasyaportofolio') === -1) {
+                                    t.src = '/anatasyaportofolio/public/images/logo.svg';
+                                }
+                            }}
+                            alt="Anatasya Logo"
+                            className="w-full h-full object-contain"
+                        />
                     </div>
-                    <span className="font-semibold text-lg tracking-tight group-hover:text-[#881337] transition-colors">
-                        tasya<span className="text-[#881337] font-normal">.dev</span>
+
+                    {/* Brand Wordmark: hianatasya */}
+                    <span className="text-lg tracking-tight select-none flex items-baseline">
+                        <span className="font-normal text-gray-400 group-hover:text-gray-600 transition-colors">hi</span>
+                        <span className="font-extrabold text-gray-900 group-hover:text-[#881337] transition-colors">anatasya</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#881337] ml-0.5 inline-block group-hover:scale-125 transition-transform" />
                     </span>
                 </a>
 

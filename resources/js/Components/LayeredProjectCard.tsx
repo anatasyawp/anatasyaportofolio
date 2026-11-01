@@ -94,7 +94,7 @@ export const LayeredProjectCard: React.FC<LayeredProjectCardProps> = ({
                             onClick={() => onSelectProject(project)}
                             className="group inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white bg-[#881337] hover:bg-[#6d1230] rounded-md shadow-md shadow-[#881337]/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
                         >
-                            <span>Read Case Study</span>
+                            <span>Open Project</span>
                             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                         </button>
 
@@ -241,7 +241,7 @@ export const LayeredProjectCard: React.FC<LayeredProjectCardProps> = ({
                             >
                                 <span className="w-2 h-2 rounded-full bg-[#881337] animate-pulse" />
                                 <div className="text-[11px] font-mono font-medium text-gray-800">
-                                    <span className="font-bold text-[#881337]">Tap / Click</span> to view STAR Case Study
+                                    <span className="font-bold text-[#881337]">Click</span> to open project
                                 </div>
                             </motion.div>
                         </div>

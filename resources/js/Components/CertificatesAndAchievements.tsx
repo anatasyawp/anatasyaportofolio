@@ -74,8 +74,11 @@ export const CertificatesAndAchievements: React.FC<CertificatesAndAchievementsPr
 
     return (
         <section id="certificates" ref={sectionRef as React.Ref<HTMLElement>} className="py-24 relative overflow-hidden">
+            {/* Seamless organic gradient divider */}
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-emerald-600/20 to-transparent pointer-events-none" />
+
             {/* Glassmorphism section backing */}
-            <div className="absolute inset-0 bg-gray-50/75 backdrop-blur-[2px] border-t border-gray-200" />
+            <div className="absolute inset-0 bg-gradient-to-b from-white/45 via-gray-50/60 to-white/55 backdrop-blur-[6px]" />
 
             {/* Ambient Background Glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-gradient-to-tr from-[#881337]/06 via-rose-50/30 to-transparent blur-[140px] pointer-events-none rounded-full" />
@@ -210,7 +213,7 @@ export const CertificatesAndAchievements: React.FC<CertificatesAndAchievementsPr
 
                                         {item.association && (
                                             <p className="text-[11px] text-gray-300 font-sans mb-2">
-                                                Berasosiasi: <span className="font-semibold text-white">{item.association}</span>
+                                                Associated with: <span className="font-semibold text-white">{item.association}</span>
                                             </p>
                                         )}
 
@@ -240,7 +243,7 @@ export const CertificatesAndAchievements: React.FC<CertificatesAndAchievementsPr
                                                 onClick={(e) => e.stopPropagation()}
                                                 className="w-full py-2 px-3 rounded-xl bg-white hover:bg-gray-100 text-gray-950 font-bold text-xs flex items-center justify-center gap-1.5 shadow-md transition-all hover:scale-102"
                                             >
-                                                <span>Lihat Sertifikat</span>
+                                                <span>View Certificate</span>
                                                 <ExternalLink className="w-3.5 h-3.5 text-[#881337]" />
                                             </a>
                                         ) : (
@@ -266,7 +269,7 @@ export const CertificatesAndAchievements: React.FC<CertificatesAndAchievementsPr
                             {activeItem?.credentialId && (
                                 <span>ID: <strong className="text-gray-900">{activeItem.credentialId}</strong> · </span>
                             )}
-                            <span>Geser kartu atau gunakan tombol panah</span>
+                            <span>Swipe or use arrow buttons to explore</span>
                         </div>
                     </div>
 

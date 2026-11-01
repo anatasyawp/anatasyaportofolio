@@ -29,6 +29,8 @@ export default function Home({ dbProjects, dbLicenses, dbAchievements }: HomePro
                         name="description"
                         content="Portfolio of Anatasya Wenita Putri (Tasya). Fresh Graduate in D4 Software Engineering from IPB University. Full-Stack Developer with experience in Laravel, PHP, MySQL, JavaScript, and Software Quality Assurance at Pemerintah Kota Depok."
                     />
+                    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+                    <link rel="alternate icon" href="./favicon.ico" />
                 </Head>
 
                 {/* Interactive Dynamic Mouse & Scroll Parallax Background */}
