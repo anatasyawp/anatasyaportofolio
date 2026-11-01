@@ -1,0 +1,134 @@
+name: 🚀 Deploy ke hianatasya.my.id
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # bisa trigger manual dari GitHub
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy ke Shared Hosting
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      # 1. Checkout kode terbaru
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Setup Node.js untuk build Vite/React
+      - name: 🟢 Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # 3. Setup PHP untuk composer
+      - name: 🐘 Setup PHP 8.2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, bcmath, pdo, pdo_sqlite, sqlite3
+          tools: composer:v2
+
+      # 4. Install dependencies NPM
+      - name: 📦 Install NPM dependencies
+        run: npm ci
+
+      # 5. Build frontend (Vite)
+      - name: ⚡ Build frontend assets
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      # 6. Install Composer dependencies (production only)
+      - name: 🎻 Install Composer dependencies
+        run: composer install --no-dev --optimize-autoloader --no-interaction
+
+      # 7. Buat .env untuk production
+      - name: 🔧 Buat file .env production
+        run: |
+          cat > .env << 'EOF'
+          APP_NAME="Tasya Portfolio"
+          APP_ENV=production
+          APP_KEY=${{ secrets.APP_KEY }}
+          APP_DEBUG=false
+          APP_URL=https://hianatasya.my.id
+
+          ADMIN_USERNAME=${{ secrets.ADMIN_USERNAME }}
+          ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }}
+
+          APP_LOCALE=id
+          APP_FALLBACK_LOCALE=id
+
+          LOG_CHANNEL=stderr
+          LOG_LEVEL=error
+
+          DB_CONNECTION=sqlite
+          DB_DATABASE=/home/${{ secrets.FTP_USERNAME }}/anatasyaportofolio/database/database.sqlite
+
+          SESSION_DRIVER=cookie
+          SESSION_LIFETIME=120
+
+          CACHE_STORE=file
+          QUEUE_CONNECTION=sync
+          EOF
+
+      # 8. Siapkan folder untuk di-upload (exclude file tidak perlu)
+      - name: 📁 Siapkan struktur deploy
+        run: |
+          mkdir -p deploy-package
+          rsync -av --exclude='.git' \
+                    --exclude='node_modules' \
+                    --exclude='tests' \
+                    --exclude='.github' \
+                    --exclude='*.md' \
+                    --exclude='.env.example' \
+                    --exclude='vite.config.ts' \
+                    --exclude='tsconfig*.json' \
+                    --exclude='package*.json' \
+                    --exclude='postcss.config.js' \
+                    --exclude='tailwind.config.js' \
+                    . deploy-package/
+
+      # 9. Deploy via FTP ke shared hosting
+      - name: 🚀 Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          protocol: ftps
+          local-dir: ./
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/tests/**
+            **/.github/**
+            **/README.md
+            **/RENDER.md
+            **/*.md
+            **/vite.config.ts
+            **/tsconfig*.json
+            **/package*.json
+            **/postcss.config.js
+            **/tailwind.config.js
+            **/Dockerfile
+            **/docker/**
+            **/render.yaml
+
+      # 10. Verifikasi deploy
+      - name: ✅ Verifikasi site live
+        run: |
+          sleep 10
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://hianatasya.my.id/ --max-time 30)
+          echo "HTTP Status: $STATUS"
+          if [ "$STATUS" = "200" ] || [ "$STATUS" = "301" ] || [ "$STATUS" = "302" ]; then
+            echo "✅ Site berhasil di-deploy! hianatasya.my.id = $STATUS"
+          else
+            echo "⚠️  Perlu verifikasi manual. Status: $STATUS"
+          fi
