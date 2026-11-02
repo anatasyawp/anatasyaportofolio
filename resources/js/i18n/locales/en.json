@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Anatasya Wenita Putri — Full-Stack Developer & Software Engineering Portfolio",
-    "description": "Portfolio of Anatasya Wenita Putri (Tasya). Fresh Graduate in D4 Software Engineering from IPB University. Full-Stack Developer with experience in Laravel, PHP, MySQL, JavaScript, and Software Quality Assurance at Pemerintah Kota Depok."
+    "title": "Anatasya Wenita Putri — Full-Stack Developer, UI/UX Designer & Software Testing",
+    "description": "Portfolio of Anatasya Wenita Putri (Tasya). Fresh Graduate in D4 Software Engineering from IPB University. Specializing in Full-Stack Web Development, UI/UX Design, and Software Testing (Manual Testing) with Laravel, PHP, React, MySQL, and Figma."
   },
   "nav": {
     "profile": "Profile",
@@ -16,10 +16,10 @@
     "switchLang": "Change language"
   },
   "profile": {
-    "status": "Fresh Graduate · Full-Stack Developer · Open to Opportunities",
+    "status": "Fresh Graduate · Full-Stack Developer · UI/UX Designer · Manual Testing",
     "greeting": "Hello, I'm",
     "name": "Anatasya.",
-    "subheadline": "A Full-Stack Developer and Software Engineering graduate passionate about building impactful web applications, crafting intuitive user experiences, and delivering reliable, high-quality software through thoughtful design and development.",
+    "subheadline": "A Software Engineering graduate specializing in Full-Stack Web Development, UI/UX Design, and Software Testing (Manual Testing). Dedicated to building robust web applications, crafting intuitive user experiences, and ensuring high software quality through rigorous end-to-end verification.",
     "connect": "Let's Connect",
     "exploreProjects": "Explore Projects",
     "cv": "CV",

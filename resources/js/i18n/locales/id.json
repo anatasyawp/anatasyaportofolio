@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Anatasya Wenita Putri — Portofolio Full-Stack Developer & Rekayasa Perangkat Lunak",
-    "description": "Portofolio Anatasya Wenita Putri (Tasya). Lulusan D4 Teknologi Rekayasa Perangkat Lunak IPB University. Full-Stack Developer berpengalaman dalam Laravel, PHP, MySQL, JavaScript, dan Software Quality Assurance di Pemerintah Kota Depok."
+    "title": "Anatasya Wenita Putri — Full-Stack Developer, UI/UX Designer & Software Testing",
+    "description": "Portofolio Anatasya Wenita Putri (Tasya). Lulusan D4 Teknologi Rekayasa Perangkat Lunak IPB University. Keahlian Full-Stack Web Development, Desain UI/UX, dan Software Testing (Manual Testing) menggunakan Laravel, PHP, React, MySQL, dan Figma."
   },
   "nav": {
     "profile": "Profil",
@@ -16,10 +16,10 @@
     "switchLang": "Ubah bahasa"
   },
   "profile": {
-    "status": "Fresh Graduate · Full-Stack Developer · Terbuka untuk Peluang Kerja",
+    "status": "Fresh Graduate · Full-Stack Developer · UI/UX Designer · Manual Testing",
     "greeting": "Halo, saya",
     "name": "Anatasya.",
-    "subheadline": "Full-Stack Developer dan lulusan Rekayasa Perangkat Lunak yang berdedikasi menciptakan aplikasi web berdampak nyata, merancang pengalaman pengguna yang intuitif, serta menghadirkan perangkat lunak berkualitas tinggi dan andal melalui perancangan yang matang.",
+    "subheadline": "Lulusan Rekayasa Perangkat Lunak dengan spesialisasi Full-Stack Development, Desain UI/UX, dan Software Testing (Manual Testing). Berdedikasi membangun aplikasi web yang andal dan solutif, merancang antarmuka pengguna yang intuitif, serta memastikan mutu perangkat lunak melalui pengujian komprehensif.",
     "connect": "Hubungi Saya",
     "exploreProjects": "Jelajahi Proyek",
     "cv": "CV",

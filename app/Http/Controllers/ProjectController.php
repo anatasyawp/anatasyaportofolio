@@ -174,9 +174,11 @@ class ProjectController extends Controller
             'images' => 'nullable|array|max:20',
             'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'folder' => 'nullable|string|in:projects,licenses,achievements',
         ]);
 
-        $uploadDir = public_path('uploads/projects');
+        $folder = $request->input('folder', 'projects');
+        $uploadDir = public_path('uploads/' . $folder);
         if (!file_exists($uploadDir)) {
             mkdir($uploadDir, 0755, true);
         }
@@ -201,7 +203,7 @@ class ProjectController extends Controller
             $filename = time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
             $file->move($uploadDir, $filename);
             $uploaded[] = [
-                'url' => '/uploads/projects/' . $filename,
+                'url' => '/uploads/' . $folder . '/' . $filename,
                 'alt' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME),
                 'depth' => 1,
             ];

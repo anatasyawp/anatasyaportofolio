@@ -4,15 +4,15 @@ export const PERSONAL_INFO = {
     name: 'Anatasya Wenita Putri',
     preferredName: 'Anatasya Wenita Putri',
     headline: 'Hello, I\'m Anatasya.',
-    subheadline: 'A Full-Stack Developer and Software Engineering graduate passionate about building impactful web applications, crafting intuitive user experiences, and delivering reliable, high-quality software through thoughtful design and development.',
+    subheadline: 'A Software Engineering graduate specializing in Full-Stack Web Development, UI/UX Design, and Software Testing (Manual Testing). Dedicated to building robust web applications, crafting intuitive user experiences, and ensuring high software quality through rigorous end-to-end verification.',
     roles: [
         'Full-Stack Developer',
-        'Software Engineering Graduate',
         'UI/UX Designer',
-        'Software QA & Testing'
+        'Software Testing (Manual Testing)',
+        'Software Engineering Graduate'
     ],
-    professionalStatus: 'Fresh Graduate · Full-Stack Developer · Open to Opportunities',
-    bio: 'Fresh Graduate in D4 Software Engineering (Teknologi Rekayasa Perangkat Lunak) from IPB University (GPA 3.54 / 4.00). Experienced in full-stack web application development using Laravel, PHP, JavaScript, and MySQL during an intensive internship at Pemerintah Kota Depok.',
+    professionalStatus: 'Fresh Graduate · Full-Stack Developer · UI/UX Designer · Manual Testing',
+    bio: 'Fresh Graduate in D4 Software Engineering (Teknologi Rekayasa Perangkat Lunak) from IPB University (GPA 3.54 / 4.00). Experienced in Full-Stack Web Development, UI/UX Design, and Software Quality Assurance (Manual Testing) using Laravel, PHP, JavaScript, MySQL, and Figma during an intensive internship at Pemerintah Kota Depok.',
     email: 'anatasyawenitaputrii@gmail.com',
     github: 'https://github.com/anatasyawp',
     linkedin: 'https://linkedin.com/in/anatasyawp',

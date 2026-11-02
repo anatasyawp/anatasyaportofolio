@@ -274,35 +274,43 @@ export const CertificatesAndAchievements: React.FC<CertificatesAndAchievementsPr
                 </div>
 
                 {/* Bottom Active Slide Details & Indicators */}
-                <div className="mt-8 pt-6 border-t border-gray-200 flex flex-col md:flex-row items-center justify-between gap-4">
-                    <div className="flex items-center gap-3">
-                        <span className="px-2.5 py-1 rounded-md bg-[#881337]/10 text-xs font-mono font-bold text-[#881337]">
-                            {activeIndex + 1} / {totalItems}
-                        </span>
-                        <div className="text-xs text-gray-600 font-mono">
-                            {activeItem?.credentialId && (
-                                <span>ID: <strong className="text-gray-900">{activeItem.credentialId}</strong> · </span>
-                            )}
-                            <span>{t('certificates.hint')}</span>
+                <div className="mt-8 pt-6 border-t border-gray-200 space-y-3">
+                    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div className="flex items-center gap-3">
+                            <span className="px-2.5 py-1 rounded-md bg-[#881337]/10 text-xs font-mono font-bold text-[#881337]">
+                                {activeIndex + 1} / {totalItems}
+                            </span>
+                            <div className="text-xs text-gray-600 font-mono">
+                                {activeItem?.credentialId && (
+                                    <span>ID: <strong className="text-gray-900">{activeItem.credentialId}</strong> · </span>
+                                )}
+                                <span>{t('certificates.hint')}</span>
+                            </div>
+                        </div>
+
+                        {/* Pagination Dots */}
+                        <div className="flex items-center gap-1.5">
+                            {certificateList.map((c, i) => (
+                                <button
+                                    key={c.id || c.title}
+                                    type="button"
+                                    onClick={() => setActiveIndex(i)}
+                                    aria-label={`Slide to ${c.title}`}
+                                    className={`h-2 rounded-full transition-all cursor-pointer ${
+                                        activeIndex === i
+                                            ? 'w-8 bg-[#881337]'
+                                            : 'w-2 bg-gray-300 hover:bg-gray-400'
+                                    }`}
+                                />
+                            ))}
                         </div>
                     </div>
 
-                    {/* Pagination Dots */}
-                    <div className="flex items-center gap-1.5">
-                        {certificateList.map((c, i) => (
-                            <button
-                                key={c.id || c.title}
-                                type="button"
-                                onClick={() => setActiveIndex(i)}
-                                aria-label={`Slide to ${c.title}`}
-                                className={`h-2 rounded-full transition-all cursor-pointer ${
-                                    activeIndex === i
-                                        ? 'w-8 bg-[#881337]'
-                                        : 'w-2 bg-gray-300 hover:bg-gray-400'
-                                }`}
-                            />
-                        ))}
-                    </div>
+                    {activeItem?.description && (
+                        <p className="text-xs sm:text-sm text-gray-600 leading-relaxed font-sans max-w-2xl bg-gray-50/80 p-3.5 rounded-xl border border-gray-200/70">
+                            💬 <span className="font-semibold text-gray-800">{activeItem.title}:</span> {activeItem.description}
+                        </p>
+                    )}
                 </div>
 
             </motion.div>
