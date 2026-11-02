@@ -163,5 +163,56 @@ class ProjectController extends Controller
 
         return redirect()->back()->with('success', 'Project deleted successfully');
     }
+
+    /**
+     * Upload one or multiple images for projects (POST /api/upload)
+     * Validates format (jpg, jpeg, png, webp) and limits size to max 2MB (2048 KB) per image
+     */
+    public function uploadImage(Request $request)
+    {
+        $request->validate([
+            'images' => 'nullable|array|max:20',
+            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ]);
+
+        $uploadDir = public_path('uploads/projects');
+        if (!file_exists($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+
+        $uploaded = [];
+        $files = [];
+
+        if ($request->hasFile('images')) {
+            $files = $request->file('images');
+        } elseif ($request->hasFile('image')) {
+            $files = [$request->file('image')];
+        }
+
+        if (empty($files)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Tidak ada file gambar yang diunggah.'
+            ], 422);
+        }
+
+        foreach ($files as $file) {
+            $filename = time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
+            $file->move($uploadDir, $filename);
+            $uploaded[] = [
+                'url' => '/uploads/projects/' . $filename,
+                'alt' => pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME),
+                'depth' => 1,
+            ];
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => count($uploaded) . ' gambar berhasil diunggah.',
+            'images' => $uploaded,
+            'url' => $uploaded[0]['url'] ?? null,
+        ]);
+    }
 }
 

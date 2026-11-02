@@ -47,3 +47,4 @@ foreach ($commands as $cmd) {
 }
 
 echo "\n✅ Selesai! Hapus file post-deploy.php dari server setelah ini.\n";
+

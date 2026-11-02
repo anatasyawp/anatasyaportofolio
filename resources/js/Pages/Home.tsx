@@ -71,6 +71,7 @@ export default function Home({ dbProjects, dbLicenses, dbAchievements }: HomePro
                 {/* Project Case Study Detail Overlay */}
                 <ProjectDetailModal
                     project={selectedProject}
+                    projects={dbProjects}
                     onClose={() => setSelectedProject(null)}
                     onSelectProject={(project) => setSelectedProject(project)}
                 />

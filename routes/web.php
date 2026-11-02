@@ -20,6 +20,11 @@ Route::prefix('api/projects')->name('api.projects.')->group(function () {
     });
 });
 
+// Image Upload Endpoint (Max 2MB per image, JPG/PNG/WebP, supports up to 20 images)
+Route::middleware('portfolio.admin')->group(function () {
+    Route::post('api/upload', [ProjectController::class, 'uploadImage'])->name('api.upload');
+});
+
 // RESTful CRUD Endpoints for Licenses
 Route::prefix('api/licenses')->name('api.licenses.')->group(function () {
     Route::get('/', [LicenseController::class, 'index'])->name('index');
